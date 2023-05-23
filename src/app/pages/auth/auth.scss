@@ -1,0 +1,32 @@
+$app-red:#ff1e38;
+
+
+form{   
+    max-width:350px;
+    margin: 20px auto;
+    z-index: 0!important;
+
+    button{
+        background:$app-red;
+        color:white;
+    }
+    .form-floating{
+        margin-bottom: 10px;        
+    }
+    .ng-touched.ng-invalid~label{
+        color:red;
+    }
+    .password-container{
+        position:relative;
+    }
+    .icon-eye{
+        position:absolute;
+        z-index:100;
+        transform:translateY(-50%);
+        right:10px;
+        top:50%;        
+    }
+ 
+
+          
+}

@@ -1,0 +1,17 @@
+<div *ngIf="errorText" style="color:red; width:300px; margin:0 auto; padding:20px 0; text-align: center;">{{errorText}}</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()">   
+  <h1 class="h3 mb-3 fw-normal">Please sign up</h1>   
+  <div class="form-floating">
+    <input type="text" class="form-control"  placeholder="username" formControlName="identifier">
+    <label for="floatingInput">User Name</label>
+  </div>
+  <div class="form-floating password-container">
+    <input [type]="hide?'password':'text'" class="form-control"  placeholder="Password" formControlName="password">
+    <label for="floatingPassword">Password</label>
+     <mat-icon class="icon-eye" (click)="showOrHidePassword($event)" #icon_eye >visibility_off</mat-icon>    
+  </div>  
+  
+  <button class="w-100 btn btn-lg" type="submit">Sign In</button>
+</form>
+

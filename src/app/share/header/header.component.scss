@@ -1,0 +1,165 @@
+
+$app-red:#ff1e38;
+
+header{ 
+    width:100%;
+}
+
+.upper{   
+      padding:10px 2%;   
+      display: flex;  
+      flex-wrap: wrap;
+}
+
+.logo img{
+  cursor: pointer;
+}
+.left,.right{
+        width:50%;
+        display: flex;
+        align-items: center;      
+      }
+.left{
+      justify-content: space-between;   
+}
+
+.search{
+      position: relative;
+      width:45%;
+}       
+
+input{
+      width:100%;
+      padding:4px 10px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background-color:#e0e0e0;
+      }
+
+.btn-submit{
+      width:30px;
+      background-color:$app-red;
+      border:none;
+      position:absolute;
+      right:0;
+      top:0;
+      bottom:0;
+      border-radius: 0 10px 10px 0px;
+}                  
+
+.search-icon{
+      color:white;   
+     }
+.right{     
+      justify-content: flex-end;
+        a.auth{
+          text-decoration: none;
+          color:white;
+          font-weight: 700;
+          background-color:$app-red;
+          margin-right:5%;
+          font-size: 0.8em;
+          padding:8px;
+          border-radius: 10px;
+        }
+        .cart-icon{
+          color: $app-red;
+          font-size:25px;
+          margin-right:10px
+        
+        }
+
+    }
+    .lower{
+      position:relative;
+      background-color: $app-red;
+      padding:0px 4%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      .nav-link{
+        text-decoration: none;
+        color:white;
+        padding:10px 20px;
+        font-size: 0.8em;  
+        font-weight: 500;      
+      }
+      .nav-link:hover{
+        background-color:#f5f3f4;
+        color:black;
+      }
+
+      .hoverlinks{   
+        background-color:#f5f3f4 ;
+        width:92%;
+        position:absolute;
+        z-index:1;
+        top:100%;
+        display: none;        
+      }
+
+      .nav-link:hover +.hoverlinks{
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hoverlinks:hover{
+        display: flex;
+        flex-direction: column;
+      }
+      
+    }
+@media screen and (max-width: 900px) {
+  header{   
+    .upper{   
+      flex-direction: column-reverse;  
+      position:relative;
+    }
+    
+    .left,.right{
+        width:100%;              
+     }
+    
+    .left{ 
+        margin-top:20px;
+      }
+    .logo{
+          position:absolute;
+          top:10px;
+        }        
+    .search{  
+        width:50%;
+        margin: auto;         
+              
+        }
+      }
+
+  }
+
+
+@media screen and (max-width: 600px) {
+  header{   
+   .cart-icon{
+    position:absolute;
+    bottom:10px;
+   }
+   .right .auth{
+    margin-right:0;
+    margin-left: 5%;
+   }
+}
+}
+
+@media screen and (max-width: 500px) {
+  header{ 
+   .right .auth{
+    font-size: 0.7em;
+   }
+   .logo{
+   img{
+    width:100px;
+   }
+  }    
+}
+}

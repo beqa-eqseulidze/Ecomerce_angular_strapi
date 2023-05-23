@@ -1,0 +1,68 @@
+<header>
+  <div class="upper">
+    <div class="left">
+      <div class="logo">
+        <img routerLink="" src="assets/logo.png" width="150" alt="">
+      </div>
+    <div class="search" >
+      <input type="search" [(ngModel)]="search" name="" id="" placeholder="ძიება...">
+      <button class="btn-submit" type="submit"> <mat-icon class="icon search-icon">search</mat-icon> </button>
+    </div>    
+  </div>
+  <div class="right">     
+    
+    <ng-container *ngIf="user|async as user; else elseBlock">
+      <mat-icon [routerLink]="['cart']" class="cart-icon" [matBadge]="cartCount"  matBadgeColor="warn">shopping_cart</mat-icon> 
+      <div class="ms-5 d-flex align-items-center">
+        <ng-container *ngIf="profilUrl|async as profilUrl; else defulteImage">
+          <img src={{apiHost}}{{profilUrl}} alt="mdo" width="32" height="32" class="rounded-circle">
+        </ng-container>
+        <ng-template #defulteImage>         
+          <img src='https://material.angular.io/assets/img/examples/shiba1.jpg' alt="mdo" width="32" height="32" class="rounded-circle">
+        </ng-template>
+        <span class="ms-2">{{user.email}} </span>
+        <a class="auth ms-2 me-0"  (click)="signOut()">Sign Out</a>
+      </div>
+    </ng-container>
+    
+    
+    <ng-template #elseBlock>
+      <a class="auth" [routerLink]="['auth/signIn']">Sign In</a>
+      <a  class="auth" [routerLink]="['auth/signUp']"   >Sign Up</a>
+    </ng-template>
+      
+         
+    </div>
+  </div>   
+  <div class="lower">  
+   <ng-container *ngFor="let category of mainCategories">
+      <a class="nav-link" [ngStyle]="{'width':width+'%'}">{{category.attributes.title}}</a>
+      <div class="hoverlinks">
+        <app-one-level-sub-categories-link [mainCategoryId]="category.id" ></app-one-level-sub-categories-link>
+        <!-- <h3>link 1 ქვე კატეგორია 1</h3>
+        <a href="">first 1</a>
+        <a href="">first 2</a>
+        <h3> link1 ქვე კატეგორია 3</h3>
+        <a href=""> first 1</a>
+        <a href=""> first 2</a> -->
+      </div>
+      <!-- <a class="nav-link" [ngStyle]="{'width':width+'%'}">link-2 category.attributes.title</a>
+      <div class="hoverlinks"> -->
+        <!-- <app-one-level-sub-categories-link [mainCategoryId]="category.id" ></app-one-level-sub-categories-link> -->
+        <!-- <h3> link 2ქვე კატეგორია 1</h3>
+        <a href="">second 1</a>
+        <a href="">second 2</a>
+        <h3>link 2 ქვე კატეგორია 3</h3>
+        <a href=""> second 1</a>
+        <a href=""> second 2</a>
+      </div> -->
+   </ng-container>
+   <!-- <ng-container *ngFor="let category of categories|async">
+    <h1>{{category.attributes.title}}</h1>
+    <h2>{{category.attributes.one_level_sub_categories.data|json}}</h2>   
+   </ng-container> -->
+
+
+  </div>
+  
+</header>
