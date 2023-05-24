@@ -31,8 +31,7 @@ ngOnInit(): void {
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe({
         next:(d:IMainCategory)=>{          
-            this.oneLevelSubCategories=d.attributes.one_level_sub_categories?.data||[]
-            console.log(this.oneLevelSubCategories)
+            this.oneLevelSubCategories=d.attributes.one_level_sub_categories?.data||[]           
         }
     })
 }

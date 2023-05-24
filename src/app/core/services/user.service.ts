@@ -21,11 +21,14 @@ export class UserService {
     ) { }
 
 // getAndSaveOwnRoleAndProfilUrl allow autenticated and admin users to access:
-   getAndSaveOwnRoleAndProfilUrl(token:string):Observable<IUserIRoleIFullImage>{
+   getAndSaveOwnRoleAndProfilUrl(token:string):Observable<IUserIRoleIFullImage>{    
        return this.http.get<IUserIRoleIFullImage>(this.url+this.tbName+'/me?populate=role&populate=image')
-              .pipe(
+              .pipe(                              
                 tap(responce=>this.storageService.saveRole(responce.role)),
-                tap(responce=>this.storageService.saveProfilImageUrl(responce.image.formats.thumbnail.url))
+                tap(responce=>{              
+                  if(responce.image)
+                  this.storageService.saveProfilImageUrl(responce.image.formats.thumbnail.url)
+                }),
                 )
 
    }
@@ -34,7 +37,10 @@ export class UserService {
   getAndSaveOwnProfilUrl(token:string):Observable<IFullImage>{
     return this.http.get<IUserIRoleIFullImage>(this.url+this.tbName+'/me?populate=image')
            .pipe(             
-             tap(responce=>this.storageService.saveProfilImageUrl(responce.image.formats.thumbnail.url))
+             tap(responce=>{
+              if(responce.image)
+              this.storageService.saveProfilImageUrl(responce.image.formats.thumbnail.url)
+            })
              )
 
 }

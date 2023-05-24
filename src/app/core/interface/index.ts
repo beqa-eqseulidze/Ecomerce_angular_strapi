@@ -1,3 +1,5 @@
 export* from './user.interface'
 export* from './main-category.interface'
 export* from './image.interface'
+export * from './one-level-sub-category.interface'
+export * from './two-level-sub-category.interface'

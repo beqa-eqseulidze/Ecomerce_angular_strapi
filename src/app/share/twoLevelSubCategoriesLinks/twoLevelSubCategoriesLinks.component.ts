@@ -1,5 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
+import { OneLevelSubCategoryService, TwoLevelSubCategoryService } from 'src/app/core/services';
+import { IOneLevelSubCategory, ITwoLevelSubCategory } from "src/app/core/interface";
 
 @Component({
     selector:'app-two-level-sub-categories-link',
@@ -14,24 +16,22 @@ export class TwoLevelSubCategoriesLinksComponent implements OnInit,OnDestroy{
     @Input() oneLevelSubCategoryId !:number
 
     constructor(
-        // private mainCategoryService:MainCategoryService
+         private oneLevelSubCategoryService:OneLevelSubCategoryService
     ){}
 
-    // oneLevelSubCategories:IOneLevelSubCategory[]=[]
+     twoLevelSubCategories:ITwoLevelSubCategory[]=[]
                                                          
 
     
 
-ngOnInit(): void {
-    // if(!this.mainCategoryId) alert('no id')
-    // this.mainCategoryService.getById(this.mainCategoryId,'?populate=*')
-    // .pipe(takeUntil(this.unsubscribe$))
-    // .subscribe({
-    //     next:(d:IMainCategoryPopulateAll)=>{          
-    //         this.oneLevelSubCategories=d.attributes.one_level_sub_categories.data
-    //         console.log(this.oneLevelSubCategories)
-    //     }
-    // })
+ngOnInit(): void {   
+    this.oneLevelSubCategoryService.getById(this.oneLevelSubCategoryId,'?populate=two_level_sub_categories')
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe({
+        next:(d:IOneLevelSubCategory)=>{          
+            this.twoLevelSubCategories=d.attributes.two_level_sub_categories?.data||[]           
+        }
+    })
 }
 
 ngOnDestroy(): void {

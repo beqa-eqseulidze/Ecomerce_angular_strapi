@@ -1,6 +1,15 @@
 
 $app-red:#ff1e38;
 
+*{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+a{
+ text-decoration: none; 
+}
+
 header{ 
     width:100%;
 }
@@ -92,16 +101,18 @@ input{
 
       .hoverlinks{   
         background-color:#f5f3f4 ;
+        padding:15px;
         width:92%;
-        position:absolute;
-        z-index:1;
+        position:absolute;        
         top:100%;
-        display: none;        
+        display: none;
+        flex-direction: column;
+        align-items: center;
+             
       }
 
       .nav-link:hover +.hoverlinks{
         display: flex;
-        flex-direction: column;
       }
 
       .hoverlinks:hover{

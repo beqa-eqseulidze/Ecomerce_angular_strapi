@@ -22,23 +22,26 @@ export class HeaderComponent implements OnInit ,OnDestroy{
    
   user:Observable<IUser|null>=this.authservice.user$
   profilUrl:Observable<string|null>= this.authservice.profilUrl$
+  role:Observable<string|null>=this.authservice.role$
   apiHost:string=environment.appHost
   search:string=''
 
   mainCategories:IMainCategory[]=[]
 
   allCategories:Subject<string[]>=new Subject();
- 
+  
 
   width:number=1;
   cartCount:number=11
 
-  ngOnInit(): void {    
-    this.width=Math.floor(100/this.mainCategories.length)
+  ngOnInit(): void {  
     this.mainCategoryservice.getAll('?populate=*')
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe({
-      next:(res)=>{this.mainCategories=res},
+      next:(res)=>{
+        this.mainCategories=res;        
+        this.width=Math.floor(100/(this.mainCategories.length+1))
+      },
       error:(error)=>console.log(error)
     })
                                

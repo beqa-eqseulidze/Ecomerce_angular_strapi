@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BaseService } from 'src/app/core/services';
-import { IMainCategoryCreate,IMainCategory} from '../interface';
+import { IMainCategoryCreate,IMainCategory} from "src/app/core/interface";;
 import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 

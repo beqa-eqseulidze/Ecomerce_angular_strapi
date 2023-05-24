@@ -86,8 +86,7 @@ export class SignUpComponent implements OnInit,OnDestroy {
     this.authService.register(this.form.value)
     .subscribe({
       next:(res)=>{  
-        this.formData.append('refId',res.user.id.toString())
-        console.log(this.formData.forEach((value,key)=>console.log(key+":"+value)))
+        this.formData.append('refId',res.user.id.toString())       
         this.sendImage().subscribe({
           next:()=>{this.getAndSaveProfilUrl()}
         });               
@@ -104,15 +103,12 @@ export class SignUpComponent implements OnInit,OnDestroy {
 // ეს ფუნქცია გასაკეთებელი სერვისში 
     sendImage():Observable<any>{
      return this.http.post<any>(environment.apiUrl+'upload',this.formData,{reportProgress:true,observe:'events'})
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        tap(res=>console.log(res))
-        )
-      }
+      .pipe(takeUntil(this.unsubscribe$))
+    }
       
   //get end save profilimage
   getAndSaveProfilUrl():void{
-    let token=this.authService.token$.getValue()
+    let token=this.authService.token$.getValue();
     if(token)
     this.userService.getAndSaveOwnProfilUrl(token).subscribe({
       next:d=>this.authService.profilUrl$.next(this.storageService.profilUrl)

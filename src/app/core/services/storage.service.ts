@@ -21,7 +21,7 @@ export class StorageService {
         }
 
 
-  get getToken():string|null{
+  get Token():string|null{
                   let res!:IAuthResponse
                   const data=localStorage.getItem('appAuthResponce')
                   data? res=JSON.parse(data):null;
@@ -39,7 +39,7 @@ export class StorageService {
                     localStorage.setItem('appUserRole',JSON.stringify(role));
                 }
 
-  get getRole():string|null{
+  get Role():string|null{
                 const role=localStorage.getItem('appUserRole');
                 return role? JSON.parse(role).name : null ;
               }
