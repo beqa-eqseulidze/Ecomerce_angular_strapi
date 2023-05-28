@@ -71,11 +71,13 @@ input{
           font-size: 0.8em;
           padding:8px;
           border-radius: 10px;
+          cursor:pointer;
         }
         .cart-icon{
           color: $app-red;
           font-size:25px;
-          margin-right:10px
+          margin-right:10px;
+          cursor: pointer;
         
         }
 
@@ -92,7 +94,8 @@ input{
         color:white;
         padding:10px 20px;
         font-size: 0.8em;  
-        font-weight: 500;      
+        font-weight: 500;    
+        cursor: pointer;  
       }
       .nav-link:hover{
         background-color:#f5f3f4;
@@ -111,14 +114,11 @@ input{
              
       }
 
-      .nav-link:hover +.hoverlinks{
-        display: flex;
-      }
-
-      .hoverlinks:hover{
+      .show{
         display: flex;
         flex-direction: column;
       }
+      
       
     }
 @media screen and (max-width: 900px) {

@@ -5,5 +5,5 @@ import { ITwoLevelSubCategory, ITwoLevelSubCategoryCreate } from "src/app/core/i
 
 @Injectable({providedIn:'root'})
 export class TwoLevelSubCategoryService extends BaseService<ITwoLevelSubCategoryCreate,ITwoLevelSubCategory>{
-    override tbName: string='two-level-sub-category'
+    override tbName: string='two-level-sub-categories'
 }

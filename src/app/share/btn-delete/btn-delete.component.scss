@@ -1,0 +1,13 @@
+$app-red:#ff1e38;
+button{
+    background-color:$app-red;
+    color:white;
+    border:none;
+    border-radius: 15px;
+    padding:5px 15px;
+    margin:0 5px;
+
+}
+button:hover{
+    background-color: #f1384d;
+}

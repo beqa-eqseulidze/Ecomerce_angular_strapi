@@ -1,0 +1,31 @@
+.btns-container{
+    display: flex;
+    justify-content: center;
+   
+}
+.active-link{
+    background-color: #d3d4d5;
+    border-color: #d3d4d5;
+}
+
+section{
+    position:relative;
+}
+.actions{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background-color: gray;
+    z-index:100;
+
+}
+@media screen and (max-width: 900px) {
+    .btns-container{
+       flex-direction: column;
+       align-items: center;
+    }
+    
+
+}

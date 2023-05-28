@@ -32,7 +32,7 @@
          
     </div>
   </div>   
-  <div class="lower">  
+  <div class="lower" #lowerHeader>  
    <ng-container *ngFor="let category of mainCategories">
       <a class="nav-link" [ngStyle]="{'width':width+'%'}">{{category.attributes.title}}</a>
       <div class="hoverlinks">
@@ -42,10 +42,10 @@
    <ng-container *ngIf="role|async as role " > 
      <a *ngIf="role==='admin'" class="nav-link" [ngStyle]="{'width':width+'%'}">Content Manager</a>
         <div class="hoverlinks">
-          <a [routerLink]="['caregory-manager']">Category Manager</a>
+          <a [routerLink]="['contentManager/categoryManager','main_categories']">Category Manager</a>
         </div> 
    </ng-container>
 
-  </div>
-  
+  </div>  
 </header>
+

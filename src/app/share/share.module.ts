@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TwoLevelSubCategoriesLinksComponent } from './twoLevelSubCategoriesLinks/twoLevelSubCategoriesLinks.component';
 import { OneLevelSubCategoriesLinksComponent } from './oneLevelSubCategoriesLinks/oneLevelSubCategoriesLinks.component';
+import { BtnDeleteComponent } from './btn-delete/btn-delete.component';
+import { BtnEditComponent } from './btn-edit/btn-edit.component';
 
 
 
@@ -13,7 +15,9 @@ import { OneLevelSubCategoriesLinksComponent } from './oneLevelSubCategoriesLink
   declarations: [
     HeaderComponent,
     TwoLevelSubCategoriesLinksComponent,
-    OneLevelSubCategoriesLinksComponent
+    OneLevelSubCategoriesLinksComponent,
+    BtnDeleteComponent,
+    BtnEditComponent
 
   ],
   imports: [
@@ -24,7 +28,9 @@ import { OneLevelSubCategoriesLinksComponent } from './oneLevelSubCategoriesLink
     
   ],
   exports:[
-    HeaderComponent
+    HeaderComponent,
+    BtnDeleteComponent,
+    BtnEditComponent
   ]
 })
 export class ShareModule { }

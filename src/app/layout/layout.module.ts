@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '../share/share.module';
+import { contentManagerGuard } from 'src/app/core/guards/content.manager.guard';
 
 
 const routes:Routes=[
@@ -17,6 +18,11 @@ const routes:Routes=[
       {
         path:'auth',
         loadChildren:()=>import('src/app/pages/auth/auth.module').then(m=>m.AuthModule)
+      },
+      {
+        path:'contentManager',
+        canActivate: [contentManagerGuard],
+        loadChildren:()=>import('src/app/pages/content-manager/content-manager.module').then(m=>m.ContentManagerModule)
       },
       {
         path:'cart',
