@@ -23,12 +23,12 @@ export class CategoryManagerComponent implements OnInit {
   ) {}
 
   data:IMainCategory[]|IOneLevelSubCategory[]|ITwoLevelSubCategory[]=[]
-  
+  categoryType:string=''
    
   ngOnInit(): void {
     this.route.params.subscribe(res=>{
-     let catType=res['categoryType'];
-     switch(catType){
+     this.categoryType=res['categoryType'];
+     switch(this.categoryType){
       case 'main_categories':
         this.mainCategoryService.getAll('?populate=*').pipe(tap((d=>this.data=d))).subscribe()
         break;      

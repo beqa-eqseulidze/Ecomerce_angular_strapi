@@ -21,6 +21,14 @@ section{
     z-index:100;
 
 }
+.table-title{
+    display:flex; 
+    padding:10px;border:1px solid red;
+    background-color: #ff1e38;
+    color:white;
+    font-weight: 700;
+    width:fit-content
+}
 @media screen and (max-width: 900px) {
     .btns-container{
        flex-direction: column;

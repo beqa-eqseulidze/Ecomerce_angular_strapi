@@ -19,13 +19,20 @@ export interface PeriodicElement {
 export class TableComponent implements OnInit {
 
   @Input() data?:IMainCategory[]|IOneLevelSubCategory[]|ITwoLevelSubCategory[] ;
-  
-  constructor() { }
+  @Input() categoryType?:string=''
+  constructor(
+    
+  ) { }
 
   ngOnInit(): void {
 
   }
- 
+ delete(id:number):void{
+    switch(this.categoryType){
+      case "main_categories":
+
+    }
+ }
 
 
 }

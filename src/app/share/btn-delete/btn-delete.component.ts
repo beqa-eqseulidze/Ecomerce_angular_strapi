@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-btn-delete',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./btn-delete.component.scss']
 })
 export class BtnDeleteComponent implements OnInit {
-
-  constructor() { }
+ @Input() id?:number
+  constructor(
+    
+  ) { }
 
   ngOnInit(): void {
   }
+  delete():void{
 
+  }
 }

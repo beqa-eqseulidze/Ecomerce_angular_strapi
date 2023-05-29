@@ -16,8 +16,8 @@
             <td>{{category.attributes.createdAt|date:'MMM d,y'}}</td>
             <td>{{category.attributes.updatedAt|date:'MMM d, y'}}</td>
             <td>
-                <app-btn-edit></app-btn-edit>
-                <app-btn-delete></app-btn-delete>              
+                <app-btn-edit [routerLink]="['edit',category.id]"></app-btn-edit>
+                <app-btn-delete (click)="delete(category.id)"></app-btn-delete>              
             </td>
 
           </tr>
