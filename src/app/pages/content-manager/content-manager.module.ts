@@ -1,55 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoryManagerComponent } from './category-manager/category-manager.component';
 import { RouterModule, Routes } from '@angular/router';
-import { TableComponent } from './table/table.component';
-import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
-import { ShareModule } from 'src/app/share/share.module';
-import { CreateCategoryComponent } from './create-category/create-category.component';
-import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { CategoryManagerModule } from 'src/app/pages/content-manager/category-manager/category-manager.module';
+import { CategoryManagerComponent } from './category-manager/category-manager.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes:Routes=[
-  {
-    path:'',
-    redirectTo:'/contentManager/categoryManager/main_categories',
-    pathMatch:'full'
-  },
-  {
-    path:'categoryManager',
-    redirectTo:'/contentManager/categoryManager/main_categories',
-    pathMatch:'full'
-  },
-  {
-    path:'categoryManager/:categoryType',
-    component:CategoryManagerComponent,
-    children:[
-      {
-        path:'create',
-        component:CreateCategoryComponent
-      },
-      {
-        path:'edit/:id',
-        component:EditCategoryComponent
-      }
-    ]
-       
-  }
-
+    {
+      path:'',
+      redirectTo:'content-manager/category-manager',
+      pathMatch:'full'
+    },
+    {
+      path:'category-manager',
+      loadChildren:()=>import('src/app/pages/content-manager/category-manager/category-manager.module').then(m=>m.CategoryManagerModule)
+    }
 ]
 
 @NgModule({
-  declarations: [
-    CategoryManagerComponent,
-    TableComponent,
-    CreateCategoryComponent,
-    EditCategoryComponent
-  ],
+  declarations: [],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    AngularMaterialModule,
-    ShareModule
-   
+    ReactiveFormsModule
   ]
 })
 export class ContentManagerModule { }

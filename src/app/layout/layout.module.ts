@@ -20,8 +20,8 @@ const routes:Routes=[
         loadChildren:()=>import('src/app/pages/auth/auth.module').then(m=>m.AuthModule)
       },
       {
-        path:'contentManager',
-        canActivate: [contentManagerGuard],
+        path:'content-manager',
+        // canActivate: [contentManagerGuard],
         loadChildren:()=>import('src/app/pages/content-manager/content-manager.module').then(m=>m.ContentManagerModule)
       },
       {

@@ -42,7 +42,7 @@
    <ng-container *ngIf="role|async as role " > 
      <a *ngIf="role==='admin'" class="nav-link" [ngStyle]="{'width':width+'%'}">Content Manager</a>
         <div class="hoverlinks">
-          <a [routerLink]="['contentManager/categoryManager','main_categories']">Category Manager</a>
+          <a [routerLink]="['content-manager/category-manager','main_categories']">Category Manager</a>
         </div> 
    </ng-container>
 

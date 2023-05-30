@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IMainCategory } from '../../../core/interface/main-category.interface';
-import { IOneLevelSubCategory } from '../../../core/interface/one-level-sub-category.interface';
+import { IMainCategory } from 'src/app/core/interface/main-category.interface';
+import { IOneLevelSubCategory } from 'src/app/core/interface/one-level-sub-category.interface';
 import { ITwoLevelSubCategory } from 'src/app/core/interface';
 
 export interface PeriodicElement {

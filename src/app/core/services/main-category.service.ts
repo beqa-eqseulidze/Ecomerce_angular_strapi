@@ -11,5 +11,6 @@ import { HttpClient } from '@angular/common/http';
 export class MainCategoryService extends BaseService<IMainCategoryCreate,IMainCategory> {
       override tbName: string='main-categories'  
     
+      entries$:BehaviorSubject<any>=new BehaviorSubject([])
     }
 
