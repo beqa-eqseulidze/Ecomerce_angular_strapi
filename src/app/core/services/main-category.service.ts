@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BaseService } from 'src/app/core/services';
 import { IMainCategoryCreate,IMainCategory} from "src/app/core/interface";;
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,7 +10,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MainCategoryService extends BaseService<IMainCategoryCreate,IMainCategory> {
       override tbName: string='main-categories'  
-    
-      entries$:BehaviorSubject<any>=new BehaviorSubject([])
-    }
+      
+      entries$=new BehaviorSubject<IMainCategory[]>([]);     
+
+  }
 

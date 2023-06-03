@@ -6,8 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TwoLevelSubCategoriesLinksComponent } from './twoLevelSubCategoriesLinks/twoLevelSubCategoriesLinks.component';
 import { OneLevelSubCategoriesLinksComponent } from './oneLevelSubCategoriesLinks/oneLevelSubCategoriesLinks.component';
-import { BtnDeleteComponent } from './btn-delete/btn-delete.component';
-import { BtnEditComponent } from './btn-edit/btn-edit.component';
+import { BtnDeleteComponent } from './buttons/btn-delete/btn-delete.component';
+import { BtnEditComponent } from './buttons/btn-edit/btn-edit.component';
 
 
 

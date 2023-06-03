@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { CategoryManagerModule } from 'src/app/pages/content-manager/category-manager/category-manager.module';
 import { CategoryManagerComponent } from './category-manager/category-manager.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 const routes:Routes=[
     {
@@ -22,7 +23,8 @@ const routes:Routes=[
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class ContentManagerModule { }

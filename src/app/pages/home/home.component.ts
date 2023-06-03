@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     //   })
     // }
     
-    const category:IOneLevelSubCategoryCreate={data:{title:'Mobile And Accessories'}}
+    // const category:IOneLevelSubCategoryCreate={data:{title:'Mobile And Accessories'}}
     //this.mainCategoryService.create(category).subscribe(d=>console.log(d))
   }
 

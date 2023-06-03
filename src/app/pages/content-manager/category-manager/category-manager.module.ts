@@ -5,8 +5,9 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { TableComponent } from './table/table.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ShareModule } from 'src/app/share/share.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShareModule } from 'src/app/share/share.module'; 
+
 
 
 const routes:Routes=[
@@ -34,14 +35,14 @@ const routes:Routes=[
     CategoryManagerComponent,
     CreateCategoryComponent,
     EditCategoryComponent,
-    TableComponent
+    TableComponent 
 
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    ShareModule,
+    RouterModule.forChild(routes),   
     ReactiveFormsModule,
+    ShareModule
   ]
 })
 export class CategoryManagerModule { }

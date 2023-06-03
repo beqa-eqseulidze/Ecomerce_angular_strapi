@@ -1,0 +1,25 @@
+$app-red:#ff1e38;
+
+button{   
+    color:white;
+    border:none;
+    border-radius: 15px;
+    padding:2px 10px;
+    margin:0 5px;
+}
+
+.delete{
+    background-color:$app-red;
+}
+
+.delete:hover{
+    background-color: #f1384d;
+}
+
+.edit{
+    background-color:rgb(23, 23, 255);
+}
+
+.edit:hover{
+    background-color:rgb(63, 63, 247);
+}

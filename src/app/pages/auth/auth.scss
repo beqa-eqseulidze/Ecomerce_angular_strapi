@@ -13,7 +13,7 @@ form{
     .form-floating{
         margin-bottom: 10px;        
     }
-    .ng-touched.ng-invalid~label{
+    .ng-touched.ng-invalid+label{
         color:red;
     }
     .password-container{

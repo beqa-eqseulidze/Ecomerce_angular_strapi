@@ -20,34 +20,28 @@ export class CategoryManagerComponent implements OnInit, OnDestroy {
     private mainCategoryService:MainCategoryService,
     private oneLevelSubCategoryService:OneLevelSubCategoryService,
     private twoLevelSubCategoryService:TwoLevelSubCategoryService
-  ) { }
+  ) { 
+     this.getAllCategories();    
+  }
 
   unsubscribe$=new Subject()
   data:IMainCategory[]|IOneLevelSubCategory[]|ITwoLevelSubCategory[]=[]
   categoryType:string=''
    
-  ngOnInit(): void {  
-    if(
-      !this.mainCategoryService.entries$.getValue().length
-    &&
-      !this.oneLevelSubCategoryService.entries$.getValue().length
-    &&
-      !this.twoLevelSubCategoryService.entries$.getValue().length
-      ){
-        this.getAllCategories();
-      }
+  ngOnInit(): void {   
+
     this.route.params
     .subscribe(res=>{
       this.categoryType=res['categoryType']  
       switch(this.categoryType){
        case 'main_categories':
-         this.mainCategoryService.entries$.subscribe(d=>this.data=d)      
+         this.mainCategoryService.entries$.pipe(takeUntil(this.unsubscribe$)).subscribe(d=>this.data=d)      
          break;      
-       case 'one_level_sub_categories':
-         this.oneLevelSubCategoryService.entries$.subscribe(d=>this.data=d)
+       case 'one_level_sub_categories':      
+         this.oneLevelSubCategoryService.entries$.pipe(takeUntil(this.unsubscribe$)).subscribe(d=>this.data=d)
          break;
        case 'two_level_sub_categories':
-         this.twoLevelSubCategoryService.entries$.subscribe(d=>this.data=d)
+         this.twoLevelSubCategoryService.entries$.pipe(takeUntil(this.unsubscribe$)).subscribe(d=>this.data=d)
          break;
       }
      })
@@ -55,16 +49,19 @@ export class CategoryManagerComponent implements OnInit, OnDestroy {
   }
 
   // get all categories entries and save in subject
-  getAllCategories():void{
-    this.mainCategoryService.getAll().pipe(takeUntil(this.unsubscribe$))
-      .subscribe((d:IMainCategory[])=>this.mainCategoryService.entries$.next(d))
-
-    this.oneLevelSubCategoryService.getAll().pipe(takeUntil(this.unsubscribe$))
-      .subscribe((d:IOneLevelSubCategory[])=>this.oneLevelSubCategoryService.entries$.next(d))
-
-    this.twoLevelSubCategoryService.getAll().pipe(takeUntil(this.unsubscribe$))
+  getAllCategories():void{   
+    if( !this.oneLevelSubCategoryService.entries$.getValue().length){
+      this.oneLevelSubCategoryService.getAll("?populate=*")
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((d:IOneLevelSubCategory[])=>this.oneLevelSubCategoryService.entries$.next(d))
+      }
+      
+      if( !this.twoLevelSubCategoryService.entries$.getValue().length){
+        this.twoLevelSubCategoryService.getAll("?populate=*")
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((d:ITwoLevelSubCategory[])=>this.twoLevelSubCategoryService.entries$.next(d))
-  }
+      }
+ }
    
   ngOnDestroy(): void {
     this.unsubscribe$.next(null);

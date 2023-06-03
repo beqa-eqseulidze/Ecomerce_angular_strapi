@@ -16,7 +16,8 @@ export class TwoLevelSubCategoriesLinksComponent implements OnInit,OnDestroy{
     @Input() oneLevelSubCategoryId !:number
 
     constructor(
-         private oneLevelSubCategoryService:OneLevelSubCategoryService
+         private oneLevelSubCategoryService:OneLevelSubCategoryService,
+         private twoLevelSubCategoryService:TwoLevelSubCategoryService
     ){}
 
      twoLevelSubCategories:ITwoLevelSubCategory[]=[]
@@ -28,9 +29,7 @@ ngOnInit(): void {
     this.oneLevelSubCategoryService.getById(this.oneLevelSubCategoryId,'?populate=two_level_sub_categories')
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe({
-        next:(d:IOneLevelSubCategory)=>{          
-            this.twoLevelSubCategories=d.attributes.two_level_sub_categories?.data||[]           
-        }
+        next:(d:IOneLevelSubCategory)=>{ this.twoLevelSubCategories=d.attributes.two_level_sub_categories?.data||[] }
     })
 }
 

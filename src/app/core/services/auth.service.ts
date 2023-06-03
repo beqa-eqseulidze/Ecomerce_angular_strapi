@@ -77,9 +77,9 @@ export class AuthService {
 
 
    // this subjects value deppends on user is signd in or not  
-   role$:BehaviorSubject<string|null>=new BehaviorSubject(this.storageService.Role);
-   token$:BehaviorSubject<string|null>=new BehaviorSubject(this.storageService.Token);
-   user$:BehaviorSubject<IUser|null>=new BehaviorSubject(this.storageService.user)
-   profilUrl$:BehaviorSubject<string|null>=new BehaviorSubject(this.storageService.profilUrl)
+   role$=new BehaviorSubject<string|null>(this.storageService.Role);
+   token$=new BehaviorSubject<string|null>(this.storageService.Token);
+   user$=new BehaviorSubject<IUser|null>(this.storageService.user)
+   profilUrl$=new BehaviorSubject<string|null>(this.storageService.profilUrl)
    
 }

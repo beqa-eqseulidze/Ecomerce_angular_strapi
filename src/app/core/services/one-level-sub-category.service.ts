@@ -15,6 +15,6 @@ export class OneLevelSubCategoryService extends BaseService<IOneLevelSubCategory
   // savecategories():void{
   //   this.getAll().pipe(tap(res=>this.oneLevelSubCategories$.next(res)))
   // }
-  entries$:BehaviorSubject<any>=new BehaviorSubject([])
+  entries$=new BehaviorSubject<IOneLevelSubCategory[]>([])
  }
 

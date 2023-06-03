@@ -18,6 +18,7 @@ export class SignInComponent implements OnInit,OnDestroy {
     private fb:FormBuilder
     ){}
   hide:boolean=true;  
+  
   showOrHidePassword(event:any):void{
     const elm=event.target as HTMLElement
     const iconText=elm.innerText

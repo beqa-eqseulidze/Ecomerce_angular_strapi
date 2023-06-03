@@ -16,16 +16,16 @@ export class BaseService<C,R> {
   ) { }
 
   getAll(queryParam:string=''):Observable<R[]>{
-    return this.http.get<any>(this.url+this.tbName+queryParam).pipe(map(d=>d.data))
+    return this.http.get<R>(this.url+this.tbName+queryParam).pipe(map((d:any)=>d.data))
   }
 
   getById(id:number,queryParam:string=''):Observable<R>{
-    return this.http.get<any>(this.url+this.tbName+'/'+id+queryParam).pipe(map(d=>d.data))
+    return this.http.get<R>(this.url+this.tbName+'/'+id+queryParam).pipe(map((d:any)=>d.data))
   }
 
 // create() allow only admin users
   create(body:C):Observable<R>{
-    return this.http.post<R>(this.url+this.tbName,body)
+    return this.http.post<R>(this.url+this.tbName,body).pipe(map((d:any)=>d.data))
   }
 
 // update() allow only admin users  

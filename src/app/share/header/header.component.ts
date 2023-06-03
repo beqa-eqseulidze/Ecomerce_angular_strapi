@@ -3,7 +3,7 @@ import { IMainCategory, IUser } from 'src/app/core/interface';
 import { AuthService, MainCategoryService, StorageService } from 'src/app/core/services';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { Observable, Subject, map, pipe, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, combineLatest, map, pipe, takeUntil, tap, combineLatestWith } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -16,9 +16,9 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
 
   unsubscribe$=new Subject()
   constructor(
-    private authservice:AuthService,
+    public authservice:AuthService,
     private storageservice:StorageService,
-    private mainCategoryservice:MainCategoryService,
+    public mainCategoryService:MainCategoryService,
     private router:Router,
     private ngZone:NgZone
   ) {}
@@ -26,35 +26,33 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
    
   
   user:Observable<IUser|null>=this.authservice.user$
-  profilUrl:Observable<string|null>= this.authservice.profilUrl$
-  role:Observable<string|null>=this.authservice.role$
+  role$:Observable<string|null>=this.authservice.role$
+  profilUrl:Observable<string|null>= this.authservice.profilUrl$  
   apiHost:string=environment.appHost
   search:string=''
-
-  mainCategories:IMainCategory[]=[]
-
-  allCategories:Subject<string[]>=new Subject();
-  
-
-  width:number=1;
+  width:number=0;
   cartCount:number=11
 
-  ngOnInit(): void {  
-    this.showChildren();
-    this.mainCategoryservice.getAll('?populate=*')
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe({
-      next:(res)=>{
-        this.mainCategories=res;        
-        this.width=Math.floor(100/(this.mainCategories.length+1))
-      },
-      error:(error)=>console.log(error)
-    })
-  }
 
-    
+  ngOnInit(): void { 
+    if(!this.mainCategoryService.entries$.getValue().length){
+      this.mainCategoryService.getAll('?populate=*')
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next:(res)=>{
+          this.mainCategoryService.entries$.next(res)      
+        },
+        error:(error)=>console.error(error)
+      })
+    }   
+  }
+  
+ 
     ngAfterViewInit(): void {
-     this.ngZone.runOutsideAngular(()=>this.clickableMenuLinks())     
+      // clickeble menu event listener go out from angular change detection
+     this.ngZone.runOutsideAngular(()=>this.clickableMenuLinks())
+    //  menu links  set width
+      this.setWidth()
     }
   
     // this function must be work outside of angular 
@@ -76,6 +74,23 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
         })    
     }
 
+    setWidth():void{
+      this.authservice.role$
+      .pipe(
+        combineLatestWith(this.mainCategoryService.entries$),
+        map(([role,categories])=>{
+          if(role==='admin'){
+            this.width=Math.floor(100/(this.mainCategoryService.entries$.getValue().length+1));
+          }else{
+            this.width=Math.floor(100/this.mainCategoryService.entries$.getValue().length)
+          }
+        })
+        )
+
+      .subscribe({
+      
+      })
+    }
                                
   signOut():void{
     this.authservice.signOut();
@@ -87,10 +102,7 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
 
 
   control:boolean=true;
-  showChildren(){    
-     
-  
-   }
+
     
 
   

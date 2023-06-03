@@ -2,4 +2,14 @@ form{
     width:300px;
     margin:0 auto;
     padding-top:30px;
+
+    button{
+        background:#ff1e38;
+        color:white;
+        
+    }
+    .ng-touched.ng-invalid+label{
+        color:red;
+    }
 }
+

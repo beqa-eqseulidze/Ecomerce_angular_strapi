@@ -2,22 +2,28 @@
     <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col">N</th>
             <th scope="col">Title</th>
+            <!-- if categories may have parent categori render next line -->
+            <th *ngIf="categoryType==='one_level_sub_categories'||categoryType==='two_level_sub_categories'" scope="col">Parent Category</th>
             <th scope="col">Create Date</th>
             <th scope="col">Update Date</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let category of data">
-            <th scope="row">{{category.id}}</th>
+          <tr *ngFor="let category of data let i=index">
+            <td scope="row">{{i+1}}</td>
             <td>{{category.attributes.title}}</td>
+            <!-- render parent category -->
+            <td *ngIf="categoryType==='one_level_sub_categories'">{{category.attributes.main_categories?.data[0]?.attributes.title}}</td>
+            <!-- render parent category -->
+            <td *ngIf="categoryType==='two_level_sub_categories'">{{category.attributes.one_level_sub_categories?.data[0]?.attributes.title}}</td>
             <td>{{category.attributes.createdAt|date:'MMM d,y'}}</td>
             <td>{{category.attributes.updatedAt|date:'MMM d, y'}}</td>
             <td>
                 <app-btn-edit [routerLink]="['edit',category.id]"></app-btn-edit>
-                <app-btn-delete ></app-btn-delete>              
+                <app-btn-delete (click)="delete(category.id)" ></app-btn-delete>              
             </td>
 
           </tr>

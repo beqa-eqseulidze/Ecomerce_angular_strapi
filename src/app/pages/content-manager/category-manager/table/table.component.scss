@@ -1,3 +1,15 @@
-*{
-    font-size:16px;
+$app-red:#ff1e38;
+
+
+th {
+  background: $app-red;
+  color:white;
+  font-weight: 500;
+  position: sticky;
+  top: 0;  
+  z-index:0; 
 }
+td{
+    padding: 5px;
+}
+     

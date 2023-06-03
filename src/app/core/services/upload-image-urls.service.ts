@@ -6,6 +6,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class UploadImageUrlsService {
 
-  imageUrls$:BehaviorSubject<string[]>=new BehaviorSubject([''])
+  imageUrls$=new BehaviorSubject<string[]>([])
 
 }

@@ -7,5 +7,5 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({providedIn:'root'})
 export class TwoLevelSubCategoryService extends BaseService<ITwoLevelSubCategoryCreate,ITwoLevelSubCategory>{
     override tbName: string='two-level-sub-categories'
-    entries$:BehaviorSubject<any>=new BehaviorSubject([]);
+    entries$=new BehaviorSubject<ITwoLevelSubCategory[]>([]);
 }

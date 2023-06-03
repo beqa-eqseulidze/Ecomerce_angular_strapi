@@ -91,9 +91,10 @@ input{
       flex-wrap: wrap;
       .nav-link{
         text-decoration: none;
+        text-align: center;
         color:white;
         padding:10px 20px;
-        font-size: 0.8em;  
+        font-size: 1em;  
         font-weight: 500;    
         cursor: pointer;  
       }
@@ -106,7 +107,8 @@ input{
         background-color:#f5f3f4 ;
         padding:15px;
         width:92%;
-        position:absolute;        
+        position:absolute; 
+        z-index: 100;       
         top:100%;
         display: none;
         flex-direction: column;
