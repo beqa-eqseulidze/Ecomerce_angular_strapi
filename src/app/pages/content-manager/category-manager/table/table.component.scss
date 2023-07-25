@@ -1,8 +1,7 @@
-$app-red:#ff1e38;
-
+@import 'src/palette.scss';
 
 th {
-  background: $app-red;
+  background: $primary-red;
   color:white;
   font-weight: 500;
   position: sticky;

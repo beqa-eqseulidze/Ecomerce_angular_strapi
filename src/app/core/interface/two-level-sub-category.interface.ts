@@ -15,8 +15,7 @@ export interface ITwoLevelSubCategory{
                     createdAt: string
                     updatedAt: string
                     publishedAt: string
-                    one_level_sub_categories?:{data:IOneLevelSubCategory[]}
-                    
+                    one_level_sub_categories?:{data:IOneLevelSubCategory[]}                   
 
                 }
         }

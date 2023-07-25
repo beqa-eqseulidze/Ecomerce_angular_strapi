@@ -1,3 +1,8 @@
+import { IFullImage, IimageAttributes } from "./image.interface"
+
+export interface IUserIRoleIFullImage extends IUserAndRole{
+  image:IUserImage[]
+ }
 
 export interface IRegister{
                              username: string,
@@ -39,3 +44,7 @@ export interface IUserRole{
 export interface IUserAndRole extends IUser{
                                             role:IUserRole
                                       }
+
+export interface IUserImage extends IimageAttributes{
+  id:number;  
+}

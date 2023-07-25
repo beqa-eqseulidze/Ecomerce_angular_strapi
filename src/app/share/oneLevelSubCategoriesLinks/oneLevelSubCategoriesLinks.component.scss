@@ -1,3 +1,26 @@
+:host{
+    height: 100%;
+    display: inherit;
+    flex-direction: inherit;
+    flex-wrap: inherit;
+}
+
 h4{
-    margin: 0 !important;;
+    // margin: 0 !important;
+    height:20px;
+    margin-right:50px;
+    color:red;
+    margin-bottom: 4px;
   }
+  .menue-link{
+    text-decoration: none;
+    font-size: 15px;
+    margin-bottom:5px;
+    margin-left: 15px;
+    display: block;
+    color: black;
+    cursor: pointer;
+   }
+   .menue-link:hover{
+    color:blue;
+   }

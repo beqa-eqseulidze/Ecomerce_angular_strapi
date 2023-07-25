@@ -1,0 +1,19 @@
+div{
+   display: none;
+}
+.active{
+    display: block;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom: 0;
+    background-color:rgb(224, 212, 212);
+    z-index:1000;
+}
+img{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left:50%;
+    top:40%;
+}

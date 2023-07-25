@@ -1,8 +1,7 @@
 import { NgModule, createComponent } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryManagerComponent } from './category-manager.component';
-import { CreateCategoryComponent } from './create-category/create-category.component';
-import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { CreateEditCategoryComponent } from './create-edit-category/create-edit-category.component';
 import { TableComponent } from './table/table.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,21 +21,19 @@ const routes:Routes=[
   },
   {
     path:':categoryType/create',
-    component:CreateCategoryComponent
+    component:CreateEditCategoryComponent
   },
   {
     path:':categoryType/edit/:id',
-    component:EditCategoryComponent
+    component:CreateEditCategoryComponent
   }
 ]
 
 @NgModule({
   declarations: [
     CategoryManagerComponent,
-    CreateCategoryComponent,
-    EditCategoryComponent,
-    TableComponent 
-
+    CreateEditCategoryComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,

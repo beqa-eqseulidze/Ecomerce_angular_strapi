@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services';
 
 @Component({
@@ -17,8 +17,16 @@ export class SignInComponent implements OnInit,OnDestroy {
     private router:Router,
     private fb:FormBuilder
     ){}
-  hide:boolean=true;  
+   
+   public hide:boolean=true;  
+   public errorText?:string
+   private unsubscribe$=new Subject()
   
+
+
+  ngOnInit(): void {
+  }
+
   showOrHidePassword(event:any):void{
     const elm=event.target as HTMLElement
     const iconText=elm.innerText
@@ -26,11 +34,6 @@ export class SignInComponent implements OnInit,OnDestroy {
     this.hide=!this.hide;    
   }
 
-  errorText?:string
-
-  ngOnInit(): void {
-  }
- 
   form:FormGroup=this.fb.group({  
     identifier:new FormControl('',[Validators.required]),
     password:new FormControl('',[Validators.required,Validators.minLength(6)])  
@@ -40,7 +43,8 @@ export class SignInComponent implements OnInit,OnDestroy {
   submit(){
    this.form.markAllAsTouched();
     if(this.form.invalid){this.errorText='fill in form correctly';return}    
-    this.authService.signIn(this.form.value).pipe(takeUntil(this.authService.unsubscribe$))
+    this.authService.signIn(this.form.value)
+    .pipe(takeUntil(this.unsubscribe$))
     .subscribe({
       next:(res)=>{        
         this.form.reset();
@@ -52,12 +56,11 @@ export class SignInComponent implements OnInit,OnDestroy {
       }
     })
   }
-
    
     ngOnDestroy(){
       setTimeout(()=>{
-        this.authService.unsubscribe$.next(null)
-        this.authService.unsubscribe$.complete()
+        this.unsubscribe$.next(null)
+        this.unsubscribe$.complete()
       },2000)
     }
 

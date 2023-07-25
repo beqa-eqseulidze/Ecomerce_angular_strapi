@@ -1,21 +1,20 @@
 
 
 <form [formGroup]="form" (ngSubmit)="submit()">   
-  <h2 class="h3 mb-3 fw-normal">cteate new: <br><strong>{{categoryType}} <br></strong>entry </h2>   
+  <h2 class="h3 mb-3 fw-normal">{{catId?'Edit':'cteate new'}}: <br><strong>{{categoryType}} <br></strong>entry </h2>   
   <div *ngIf="errorText" style="color:red; width:300px; margin:0 auto; padding:5px 0; text-align: center;">{{errorText}}</div>
     <div class="form-floating">
       <input type="text" class="form-control"  placeholder="title" formControlName="title">
       <label for="floatingInput">title</label>
     </div>
     <br>
-    <ng-container *ngIf="categories$|async as categories">
+    <ng-container *ngIf="parents$|async as categories">
         <div class="form-floating">
             <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="parent">
-              <option *ngFor="let category of categories" [value]="category.id">{{category.attributes.title}}</option>              
+              <option *ngFor="let category of categories" [ngValue]="category.id">{{category.attributes.title}}</option>              
             </select>
             <label for="floatingSelect">Choose Parent Category </label>
         </div>
     </ng-container>    
-    <button class="w-100 btn btn-lg mt-3" type="submit">submit</button> 
-   
+    <button class="w-100 btn btn-lg mt-3" type="submit">submit</button>    
 </form>

@@ -8,6 +8,8 @@ import { TwoLevelSubCategoriesLinksComponent } from './twoLevelSubCategoriesLink
 import { OneLevelSubCategoriesLinksComponent } from './oneLevelSubCategoriesLinks/oneLevelSubCategoriesLinks.component';
 import { BtnDeleteComponent } from './buttons/btn-delete/btn-delete.component';
 import { BtnEditComponent } from './buttons/btn-edit/btn-edit.component';
+import { LoaderComponent } from './loader/loader.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
@@ -17,8 +19,9 @@ import { BtnEditComponent } from './buttons/btn-edit/btn-edit.component';
     TwoLevelSubCategoriesLinksComponent,
     OneLevelSubCategoriesLinksComponent,
     BtnDeleteComponent,
-    BtnEditComponent
-
+    BtnEditComponent,
+    LoaderComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,9 @@ import { BtnEditComponent } from './buttons/btn-edit/btn-edit.component';
   exports:[
     HeaderComponent,
     BtnDeleteComponent,
-    BtnEditComponent
+    BtnEditComponent,
+    LoaderComponent,
+    PaginationComponent
   ]
 })
 export class ShareModule { }

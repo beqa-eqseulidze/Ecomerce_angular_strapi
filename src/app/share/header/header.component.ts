@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, ElementRef, HostListener, NgZone, OnDestroy, OnInit, ViewChild, asNativeElements } from '@angular/core';
-import { IMainCategory, IUser } from 'src/app/core/interface';
-import { AuthService, MainCategoryService, StorageService } from 'src/app/core/services';
-import { environment } from 'src/environments/environment';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild, asNativeElements } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, combineLatest, map, pipe, takeUntil, tap, combineLatestWith } from 'rxjs';
+
+import { IMainCategory, IUser } from 'src/app/core/interface';
+import { environment } from 'src/environments/environment';
+import { AuthService, MainCategoryService, StorageService,LoaderService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
     private storageservice:StorageService,
     public mainCategoryService:MainCategoryService,
     private router:Router,
-    private ngZone:NgZone
+    private ngZone:NgZone,
+    private loaderService:LoaderService
   ) {}
  
    
@@ -36,10 +38,13 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
 
   ngOnInit(): void { 
     if(!this.mainCategoryService.entries$.getValue().length){
-      this.mainCategoryService.getAll('?populate=*')
-      .pipe(takeUntil(this.unsubscribe$))
+      this.mainCategoryService.getEntries('?populate=*')
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((d:any):IMainCategory[]=>d.data)
+        )
       .subscribe({
-        next:(res)=>{
+        next:(res:IMainCategory[])=>{
           this.mainCategoryService.entries$.next(res)      
         },
         error:(error)=>console.error(error)
@@ -58,18 +63,29 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
     // this function must be work outside of angular 
     clickableMenuLinks():void{    
         document.addEventListener('click',(e)=>{
-          let el=e.target as HTMLElement
-          let hoverLinks:any[]=Array.from(this.lowerHeader?.nativeElement.children).filter((item:any)=>item.classList.contains('hoverlinks'))
-          let index=hoverLinks.findIndex((item:any)=>item.classList.contains('show'))          
+          let el=e.target as HTMLElement;         
+          let hoverLinks:any[]=Array.from(this.lowerHeader?.nativeElement.querySelectorAll('.hoverlinks'))
+          let index=hoverLinks.findIndex((item:any)=>item.classList.contains('show'))     
+          let navLinks:any[]=Array.from(this.lowerHeader?.nativeElement.querySelectorAll('.nav-link'))   
+          let index2=navLinks.findIndex((item:any)=>item.classList.contains('active'))
           if(el.classList.contains('nav-link')){
-            if(index>=0){
-               el.nextElementSibling?.classList.add('show')
-               hoverLinks[index].classList.remove('show')
-            }else{
-               el.nextElementSibling?.classList.add('show')
-            }
+              if(index2>=0){
+                el.classList.add('active')          
+                navLinks[index2]?.classList.remove('active')
+              }
+              else{
+                el.classList.add('active')
+              }                  
+              if(index>=0){    
+                el.nextElementSibling?.classList.add('show')
+                hoverLinks[index]?.classList.remove('show')
+              }
+              else{
+                el.nextElementSibling?.classList.add('show')               
+              }
           }else{
             hoverLinks[index]?.classList.remove('show')
+            navLinks[index2]?.classList.remove('active')
           }
         })    
     }
@@ -86,10 +102,7 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
           }
         })
         )
-
-      .subscribe({
-      
-      })
+      .subscribe()
     }
                                
   signOut():void{
@@ -98,21 +111,10 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
   }
 
 
-
-
-
-  control:boolean=true;
-
-    
-
-  
- 
-  
-  
   ngOnDestroy(): void {
     this.unsubscribe$.next(null)
     this.unsubscribe$.complete()
-  }
+  } 
   
 
 }

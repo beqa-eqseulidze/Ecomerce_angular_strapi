@@ -7,28 +7,35 @@ export interface IFullImage {
     blocked: boolean
     createdAt: string
     updatedAt: string
-    image: Image
+    image: Iimage
   }
   
-  export interface Image {
+  export interface Iimage {
     id: number
-    name: string
-    alternativeText: any
-    caption: any
-    width: number
-    height: number
-    formats: Formats
-    hash: string
-    ext: string
-    mime: string
-    size: number
-    url: string
-    previewUrl: any
-    provider: string
-    provider_metadata: any
-    createdAt: string
-    updatedAt: string
+    attributes:IimageAttributes 
   }
+
+  export interface IimageAttributes{ 
+      name: string
+      alternativeText: any
+      caption: any
+      width: number
+      height: number
+      formats: Formats
+      hash: string
+      ext: string
+      mime: string
+      size: number
+      url: string
+      previewUrl: any
+      provider: string
+      provider_metadata: any
+      createdAt: string
+      updatedAt: string
+    }    
+  
+ 
+  
   
   export interface Formats {
     thumbnail: Thumbnail

@@ -27,25 +27,33 @@
     
     <ng-template #elseBlock>
       <a class="auth" [routerLink]="['auth/signIn']">Sign In</a>
-      <a  class="auth" [routerLink]="['auth/signUp']"   >Sign Up</a>
+      <a  class="auth" [routerLink]="['auth/signUp']">Sign Up</a>
     </ng-template> 
          
     </div>
   </div>   
   <div class="lower" #lowerHeader>  
    <ng-container *ngFor="let category of mainCategoryService.entries$|async ">
-      <a class="nav-link" [ngStyle]="{'width':width+'%'}">{{category.attributes.title}}</a>
+    <div class="link-item" [ngStyle]="{'width':width+'%'}">
+      <a class="nav-link" >
+        {{category.attributes.title}}
+      </a>   
       <div class="hoverlinks">
         <app-one-level-sub-categories-link [mainCategoryId]="category.id" ></app-one-level-sub-categories-link>
-      </div>      
+      </div>     
+   </div>
    </ng-container>
    <ng-container *ngIf="authservice.role$|async as role " > 
-     <a *ngIf="role==='admin'" class="nav-link" [ngStyle]="{'width':width+'%'}">Content Manager</a>
-        <div class="hoverlinks">
-          <a [routerLink]="['content-manager/category-manager','main_categories']">Category Manager</a>
-        </div> 
+    <div class="link-item" [ngStyle]="{'width':width+'%'}">
+      <a *ngIf="role==='admin'" class="nav-link" >
+       Content Manager
+      </a>      
+       <div class="hoverlinks">
+         <a class="menue-link" [routerLink]="['content-manager/category-manager','main_categories']">Category Manager</a>
+         <a class="menue-link" [routerLink]="['content-manager/product-manager']" [queryParams]="{page:1,pageSize:10}"> Product-manager</a>
+       </div> 
+    </div>
    </ng-container>
-
   </div> 
 </header>
 

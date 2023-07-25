@@ -1,0 +1,43 @@
+form{
+    margin:0 auto;
+    padding:10px 2%;       
+}
+form>*:nth-child(2),
+form>*:nth-child(3){
+     width:50%;
+}
+form button,
+.add-image{
+    background:#ff1e38;
+    color:white;
+}    
+.ng-touched.ng-invalid+label{
+    color:red;
+}
+.img-wraper{
+    width:150px;
+    height:150px;
+}
+.img-wraper{
+    &:hover{border:1px solid #ff1e38};
+    &:hover .close{
+        background-color: red;
+        color:white;
+    }
+}
+.close{
+    top:5px;
+    right:5px;
+    font-weight: 900;
+    background-color: gray;
+    cursor: pointer;
+}
+ 
+@media screen and (max-width: 900px) {
+    
+    form>*:nth-child(2),
+    form>*:nth-child(3){
+    width:100%;
+}
+
+}

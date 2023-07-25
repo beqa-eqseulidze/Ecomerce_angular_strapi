@@ -1,0 +1,48 @@
+<div class="content-manager">
+  <button [routerLink]="['create']" class="btn btn-success m-2"> + New </button>
+  <table class="table table-hover" >
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Parent Category</th>
+        <th>Create Data</th>
+        <th>Description</th>
+        <th>Ections</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let product of products | async let i = index"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ product.attributes.name }}</td>
+        <td>{{ product.attributes.price }}</td>
+        <td>{{ product.attributes.quantity }}</td>
+        <td>{{ product.attributes.parent?.data?.attributes?.title}}</td>
+        <td>{{ product.attributes.createdAt | date :'d/MM/y'}}</td>
+        <td>
+          <p
+            style="
+              margin:0;
+              width: 200px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            "
+          >
+            {{ product.attributes.description }}
+          </p>
+        </td>
+        <td>
+          <app-btn-edit [routerLink]="['edit',product.id]"></app-btn-edit>
+          <app-btn-delete (click)="delete(product.id)" ></app-btn-delete>      
+        </td>
+      </tr>
+    </tbody>
+  </table>  
+  <app-pagination (wantedPage)="changePage($event)" (itemsPrePage)="changePageSize($event)" [paginationInfo]="paginate$" ></app-pagination>
+</div>
+ 

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, takeUntil, tap, BehaviorSubject, map } from 'rxjs';
 import { IMainCategory, IOneLevelSubCategory, ITwoLevelSubCategory } from 'src/app/core/interface';
 import { MainCategoryService } from 'src/app/core/services/main-category.service';
 import { OneLevelSubCategoriesLinksComponent } from 'src/app/share/oneLevelSubCategoriesLinks/oneLevelSubCategoriesLinks.component';
@@ -35,7 +35,7 @@ export class CategoryManagerComponent implements OnInit, OnDestroy {
       this.categoryType=res['categoryType']  
       switch(this.categoryType){
        case 'main_categories':
-         this.mainCategoryService.entries$.pipe(takeUntil(this.unsubscribe$)).subscribe(d=>this.data=d)      
+         this.mainCategoryService.entries$.pipe(takeUntil(this.unsubscribe$)).subscribe(d=>this.data=d) 
          break;      
        case 'one_level_sub_categories':      
          this.oneLevelSubCategoryService.entries$.pipe(takeUntil(this.unsubscribe$)).subscribe(d=>this.data=d)
@@ -48,19 +48,73 @@ export class CategoryManagerComponent implements OnInit, OnDestroy {
    
   }
 
-  // get all categories entries and save in subject
+  // get all categories entries and save in state (in BehaviorSubject)
   getAllCategories():void{   
+    // "main_categories" entries already exists in state(from heder.component) that's why don't need to get it agin 
     if( !this.oneLevelSubCategoryService.entries$.getValue().length){
-      this.oneLevelSubCategoryService.getAll("?populate=*")
-        .pipe(takeUntil(this.unsubscribe$))
+      this.oneLevelSubCategoryService.getEntries("?populate=*")
+        .pipe(
+          takeUntil(this.unsubscribe$),
+          map((d:any)=>d.data)
+          )
         .subscribe((d:IOneLevelSubCategory[])=>this.oneLevelSubCategoryService.entries$.next(d))
       }
       
       if( !this.twoLevelSubCategoryService.entries$.getValue().length){
-        this.twoLevelSubCategoryService.getAll("?populate=*")
-      .pipe(takeUntil(this.unsubscribe$))
+        this.twoLevelSubCategoryService.getEntries("?populate=*")
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((d:any)=>d.data)        
+        )
       .subscribe((d:ITwoLevelSubCategory[])=>this.twoLevelSubCategoryService.entries$.next(d))
       }
+ }
+ 
+ delete(id:number):void{
+  if(confirm('this entry will be deleted, are you shure'))
+   switch(this.categoryType){
+      case "main_categories":
+        this.mainCategoryService.delete(id)
+        .pipe(takeUntil(this.unsubscribe$) )
+        .subscribe({
+          next:(d)=>{
+            let categories=this.mainCategoryService.entries$.getValue(); 
+            let index=categories.findIndex((item:IMainCategory)=>item.id===d.id)
+            categories.splice(index,1)
+            this.mainCategoryService.entries$.next(categories)
+            setTimeout(()=>{alert("Deleted successfully")},500)
+          }
+        })
+        break
+
+      case "one_level_sub_categories":
+        this.oneLevelSubCategoryService.delete(id)
+        .pipe(takeUntil(this.unsubscribe$) )
+        .subscribe({
+          next:(d)=>{
+            let categories=this.oneLevelSubCategoryService.entries$.getValue(); 
+            let index=categories.findIndex((item:IOneLevelSubCategory)=>item.id===d.id)
+            categories.splice(index,1)
+            this.oneLevelSubCategoryService.entries$.next(categories)
+            setTimeout(()=>{alert("Deleted successfully")},500)
+          }
+        })
+        break
+
+      case "two_level_sub_categories":
+        this.twoLevelSubCategoryService.delete(id)
+        .pipe(takeUntil(this.unsubscribe$) )
+        .subscribe({
+          next:(d)=>{          
+              let categories=this.twoLevelSubCategoryService.entries$.getValue(); 
+              let index=categories.findIndex((item:ITwoLevelSubCategory)=>item.id===id)       
+              categories.splice(index,1)
+              this.twoLevelSubCategoryService.entries$.next(categories)        
+             setTimeout(()=>{alert("Deleted successfully")},500)
+          }
+        })
+        break   
+    }
  }
    
   ngOnDestroy(): void {

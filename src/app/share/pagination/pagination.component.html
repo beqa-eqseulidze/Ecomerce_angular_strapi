@@ -1,0 +1,51 @@
+<div class="paginationn">
+    <ng-container *ngIf="pages.length > 5; else elseBlock1">
+      <span class="prev" *ngIf="pages.length>1" (click)="changePage(activPage-1)"> <<< </span>
+      <ng-container *ngFor="let page of pages; let i = index">
+        <!-- render first three and last three paginate's button -->
+        <div
+        [ngClass]="{ active: page == activPage }"
+        *ngIf="i <= 2 || i >= pages.length - 3"
+        (click)="changePage(page)"
+        >
+          {{ page }}
+        </div>
+        <!-- render paginate's button except first three and last three -->
+        <div
+        [ngClass]="{ active: page == activPage }"
+        *ngIf="
+        i >= activPage - 2 &&
+        i < activPage + 2 &&
+        i > 2 &&
+        i < pages.length - 3
+        "
+        (click)="changePage(page)"
+        >
+          {{ page }}
+        </div>
+        <!-- render three dot -->
+        <ng-container *ngIf="i === activPage - 4 || i === activPage + 3">
+          <p class="dots" *ngIf="i > 2 && i < pages.length - 3" >...</p>
+        </ng-container>
+      </ng-container>
+      <span class="next" *ngIf="pages.length>1" (click)="changePage(activPage+1)"> >>> </span>
+    </ng-container>
+    <ng-template #elseBlock1>      
+      <span class="prev" *ngIf="pages.length>1" (click)="changePage(activPage-1)"> <<< </span>
+      <div
+        (click)="changePage(page)"
+        [ngClass]="{ active: page == activPage }"
+        *ngFor="let page of pages"
+      >
+        {{ page }}
+      </div>
+      <span  class="next" *ngIf="pages.length>1" (click)="changePage(activPage+1)"> >>> </span>
+    </ng-template>
+ <div class="item-pre-page">
+   <label for="selectSize"> Items PrePage: </label> 
+   <select  name="" id="selectSize" (change)="setItemPrePage($event)">
+     <option *ngFor="let size of pageSizeOption" [selected]="pageSize===size" [value]="size">{{size}}</option>  
+   </select>
+ </div>   
+  </div>
+

@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IAuthResponse, IRegister, ISignin, IUser } from 'src/app/core/interface/user.interface';
-import { BehaviorSubject, Observable, Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { IAuthResponse, IRegister, ISignin, IUser, IUserIRoleIFullImage } from 'src/app/core/interface/user.interface';
+import { BehaviorSubject, Observable, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 
@@ -13,73 +13,83 @@ export class AuthService {
 
 
 
-  url:string=environment.apiUrl;
-  endPointRegister:string='auth/local/register';
-  endPointSignIn:string='auth/local';
+  url: string = environment.apiUrl;
+  endPointRegister: string = 'auth/local/register';
+  endPointSignIn: string = 'auth/local';
 
 
   constructor(
-    private http:HttpClient,
-    private storageService:StorageService,
-    private userService:UserService,
-    ) { }
+    private http: HttpClient,
+    private storageService: StorageService,
+    private userService: UserService,
+  ) { }
 
-    // this subject must be copmlpited after register or signin to usubscribe of this services subscribe
-    unsubscribe$:Subject<any>=new Subject();
+  // register new user the role will be 'authenticated'
+  register(body: IRegister): Observable<IAuthResponse> {
+    return this.http.post<IAuthResponse>(this.url + this.endPointRegister, body)
+      .pipe(      
+        tap((resp: IAuthResponse) => {
+          this.token$.next(resp.jwt);
+          this.user$.next(resp.user);
+          this.storageService.saveResponce(resp);
+        }),
+        // switchMap(() => {
+        //   return this.userService.getAndSaveOwnRoleAndProfilUrl()
+        //     .pipe(
+        //       tap((d: IUserIRoleIFullImage) => {
+        //         let userRole = d.role;
+        //         this.role$.next(userRole.name)
+        //         if (d.image) {
+        //           let profilImageUrl = d.image[0].formats.thumbnail.url
+        //           this.profilUrl$.next(profilImageUrl)
+        //         }
+        //       })
+        //     )            
+        // })
+      )     
+  }
 
-    // register new user the role will be 'authenticated'
-   register(body:IRegister):Observable<IAuthResponse>{
-    return this.http.post<IAuthResponse>(this.url+this.endPointRegister,body)
-            .pipe(
-                tap(resp=>this.token$.next(resp.jwt)),
-                tap(resp=>this.user$.next(resp.user)),
-                tap(resp=>this.storageService.saveResponce(resp)),
-                tap(resp=>this.getAndSaveOwnRoleAndProfilUrl(resp))
-                )
+
+  signIn(body: ISignin): Observable<IUserIRoleIFullImage> {
+    return this.http.post<IAuthResponse>(this.url + this.endPointSignIn, body).pipe(
+       tap((resp: IAuthResponse) => {
+        this.token$.next(resp.jwt);
+        this.user$.next(resp.user);
+        this.storageService.saveResponce(resp);        
+      }),
+      switchMap(()=>{
+        return this.userService.getAndSaveOwnRoleAndProfilUrl()
+          .pipe(
+            tap((d: IUserIRoleIFullImage) => {
+              let userRole = d.role;
+              this.role$.next(userRole.name)
+              if (d.image) {
+                let profilImageUrl = d.image[0].formats.thumbnail.url
+                this.profilUrl$.next(profilImageUrl)
               }
+            }))          
+      })
+    )
+  }
 
 
-   signIn(body:ISignin):Observable<IAuthResponse>{
-    return this.http.post<IAuthResponse>(this.url+this.endPointSignIn,body).pipe(
-              tap(resp=>this.token$.next(resp.jwt)),
-              tap(resp=>this.user$.next(resp.user)),
-              tap(resp=>this.storageService.saveResponce(resp)),
-              tap(resp=>this.getAndSaveOwnRoleAndProfilUrl(resp))              
-            )
-   }
+  signOut() {
+    localStorage.removeItem('appAuthResponce');
+    localStorage.removeItem('appUserRole');
+    localStorage.removeItem('appProfilUrl');
+    this.role$.next(null);
+    this.token$.next(null);
+    this.user$.next(null);
+    this.profilUrl$.next(null);
 
-   getAndSaveOwnRoleAndProfilUrl(resp:IAuthResponse):void{
-        this.userService.getAndSaveOwnRoleAndProfilUrl(resp.jwt)
-        .pipe(
-            tap(res=>{
-            this.role$.next(res.role.name)
-            if(res.image){                          
-              this.profilUrl$.next(res.image.formats.thumbnail.url)
-            }
-          }),
-           takeUntil(this.unsubscribe$)
-        )
-      .subscribe()
-
-}
-
-   signOut(){
-          localStorage.removeItem('appAuthResponce');
-          localStorage.removeItem('appUserRole');
-          localStorage.removeItem('appProfilUrl');
-          this.role$.next(null);
-          this.token$.next(null);
-          this.user$.next(null);
-          this.profilUrl$.next(null);
-
-   }
+  }
 
 
 
-   // this subjects value deppends on user is signd in or not  
-   role$=new BehaviorSubject<string|null>(this.storageService.Role);
-   token$=new BehaviorSubject<string|null>(this.storageService.Token);
-   user$=new BehaviorSubject<IUser|null>(this.storageService.user)
-   profilUrl$=new BehaviorSubject<string|null>(this.storageService.profilUrl)
-   
+  // this subjects value deppends on user is signd in or not  
+  role$ = new BehaviorSubject<string | null>(this.storageService.Role);
+  token$ = new BehaviorSubject<string | null>(this.storageService.Token);
+  user$ = new BehaviorSubject<IUser | null>(this.storageService.user)
+  profilUrl$ = new BehaviorSubject<string | null>(this.storageService.profilUrl)
+
 }

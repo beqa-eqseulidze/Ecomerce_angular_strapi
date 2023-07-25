@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
+import { LoaderService } from './loader.service';
 
 @Injectable()
 
@@ -12,11 +13,17 @@ export class BaseService<C,R> {
   tbName:string=''
 
   constructor(
-    private http:HttpClient
+    public http:HttpClient,
+    private loaderService:LoaderService
   ) { }
 
-  getAll(queryParam:string=''):Observable<R[]>{
-    return this.http.get<R>(this.url+this.tbName+queryParam).pipe(map((d:any)=>d.data))
+  getEntries(queryParam:string=''):Observable<R>{
+    this.loaderService.loaderOn()
+    return this.http.get<R>(this.url+this.tbName+queryParam)
+    .pipe(
+      // map((d:any)=>d.data),
+      tap(()=>this.loaderService.loaderOff())
+      )
   }
 
   getById(id:number,queryParam:string=''):Observable<R>{
@@ -30,7 +37,7 @@ export class BaseService<C,R> {
 
 // update() allow only admin users  
   update(id:number, body:C):Observable<R>{
-  return this.http.put<R>(this.url+this.tbName+'/'+id,body)
+  return this.http.put<R>(this.url+this.tbName+'/'+id,body).pipe(map((d:any)=>d.data))
 }
 
 // delete() allow only admin users  
@@ -38,7 +45,4 @@ export class BaseService<C,R> {
     return this.http.delete<R>(this.url+this.tbName+'/'+id)
   }
   test:any=''
-
-
-
 }

@@ -4,7 +4,7 @@ import { ITwoLevelSubCategory } from "./two-level-sub-category.interface"
 export interface IOneLevelSubCategoryCreate{
     data: {
       title:string,
-      main_categories:number[]|number ////it gets id of main_categories     
+      main_categories:number[]|number // it gets id of main_categories     
     }
   }
 

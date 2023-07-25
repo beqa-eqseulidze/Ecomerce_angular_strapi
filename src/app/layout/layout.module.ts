@@ -21,7 +21,7 @@ const routes:Routes=[
       },
       {
         path:'content-manager',
-        // canActivate: [contentManagerGuard],
+        canActivate: [contentManagerGuard],
         loadChildren:()=>import('src/app/pages/content-manager/content-manager.module').then(m=>m.ContentManagerModule)
       },
       {

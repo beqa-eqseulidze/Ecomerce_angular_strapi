@@ -5,8 +5,6 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FileUploadComponent } from 'src/app/feature/file-upload/file-upload.component';
-import { FeatureModule } from 'src/app/feature/feature.module';
 
 const routes:Routes=[
   {
@@ -34,7 +32,7 @@ const routes:Routes=[
     RouterModule.forChild(routes),
     AngularMaterialModule,
     ReactiveFormsModule,
-    FeatureModule
+   
   ]
 })
 export class AuthModule { }

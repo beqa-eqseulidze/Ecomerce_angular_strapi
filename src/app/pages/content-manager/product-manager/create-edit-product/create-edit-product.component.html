@@ -1,0 +1,80 @@
+
+<form class="d-flex flex-wrap" [formGroup]="form" (ngSubmit)="submit()">
+  <h2 class="h3 mb-1 fw-normal w-100 text-center">
+    {{ productId ? "Edit" : "cteate new" }}: product
+  </h2>
+  <div class="d-flex flex-column gap-3">
+    <div *ngIf="errorText" style="
+        color: red;
+        width: 300px;
+        margin: 0 auto;
+        padding: 5px 0;
+        text-align: center;
+      ">
+      {{ errorText }}
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" placeholder="product name" formControlName="name" />
+      <label for="floatingInput">name</label>
+    </div>
+    <div class="form-floating">
+      <textarea name="description" id="floatingInput" cols="30" rows="10" class="form-control" placeholder="description"
+        formControlName="description"></textarea>
+      <label for="floatingInput">description</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control" placeholder="quantity" formControlName="quantity" />
+      <label for="floatingInput">quantity</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control" placeholder="price" formControlName="price" />
+      <label for="floatingInput">price</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" placeholder="warranty" formControlName="warranty" />
+      <label for="floatingInput">warranty</label>
+    </div>
+    <ng-container *ngIf="twoLevelSubCategoryService.entries$ | async as parents">
+      <div class="form-floating">
+        <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+          formControlName="parent">
+          <option *ngFor="let parent of parents" [ngValue]="parent.id">
+            {{ parent.attributes.title }}
+          </option>
+        </select>
+        <label for="floatingSelect">Choose Parent Category </label>
+      </div>
+    </ng-container>
+  </div>
+  <div *ngIf="!productId; else editMode" class="text-center p-3">
+    <input type="file" style="display: none" (change)="addImage($event)" #imageUpload />
+    <a class="add-image p-2 btn btn-lg" (click)="imageUpload.click()">+ Choose Image</a>
+    <div class="images-container mt-3 p-3 d-flex gap-2 flex-wrap justify-content-start">
+      <p *ngIf="!uploadImageUrls.length">No image selected</p>
+      <div class="img-wraper position-relative" *ngFor="let url of uploadImageUrls; let i = index">
+        <img [src]="url" class="w-100 h-100 d-block" />
+        <span class="close position-absolute p-1" (click)="deletImage(i)">X</span>
+      </div>
+    </div>
+  </div>
+  <ng-template #editMode>
+    <div class="text-center p-3">
+      <input type="file" style="display:none" (change)="addImage($event)" #imageUpload />
+      <a class="add-image p-2 btn btn-lg" (click)="imageUpload.click()">+ Choose Image</a>
+      <div class="images-container mt-3 p-3 d-flex gap-2 flex-wrap justify-content-start">
+        <p *ngIf="!productImages.length && !uploadImageUrls.length ">No product image</p>
+        <div class="img-wraper position-relative" *ngFor="let image of productImages; let i = index">
+          <img [src]="appHost+image.attributes.url" class="w-100 h-100 d-block" />
+          <span class="close position-absolute p-1" (click)="deletProductImage(image.id)">X</span>
+        </div>
+        <div class="img-wraper position-relative" *ngFor="let url of uploadImageUrls; let i = index">
+          <img [src]="url" class="w-100 h-100 d-block" />
+          <span class="close position-absolute p-1" (click)="deletImage(i)">X</span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="w-100">
+    <button class="btn btn-lg mt-3" type="submit">submit</button>
+  </div>
+</form>
