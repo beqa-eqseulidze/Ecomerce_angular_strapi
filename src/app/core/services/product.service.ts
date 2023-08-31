@@ -82,4 +82,14 @@ export class ProductService extends BaseService<IProductCreate, IProducts> {
           });
       });
   }
+
+  filterProduct(queryParams:string):Observable<IProduct[]>{
+    return this.filter(queryParams).pipe(
+     map((products:IProducts)=>{
+      this.products$.next(products.data)
+      return products.data
+    })
+    )
+  }
+
 }

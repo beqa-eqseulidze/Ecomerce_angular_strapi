@@ -9,7 +9,7 @@ import { CategoryManagerComponent } from './category-manager/category-manager.co
 const routes:Routes=[
     {
       path:'',
-      redirectTo:'content-manager/category-manager',
+      redirectTo:'category-manager',
       pathMatch:'full'
     },
     {
@@ -26,8 +26,7 @@ const routes:Routes=[
   declarations: [],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule,
-    // ReactiveFormsModule,    
+    CommonModule    
   ]
 })
 export class ContentManagerModule { }

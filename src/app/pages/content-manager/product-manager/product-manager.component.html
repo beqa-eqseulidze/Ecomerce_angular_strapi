@@ -1,6 +1,8 @@
 <div class="content-manager">
-  <button [routerLink]="['create']" class="btn btn-success m-2"> + New </button>
-  <table class="table table-hover" >
+  <div class="action " >  
+    <button [routerLink]="['create']" class="btn btn-success m-2">+ New</button>
+  </div>
+  <table class="table table-hover" >  
     <thead>
       <tr>
         <th>#</th>
@@ -38,8 +40,8 @@
         </td>
         <td>
           <app-btn-edit [routerLink]="['edit',product.id]"></app-btn-edit>
-          <app-btn-delete (click)="delete(product.id)" ></app-btn-delete>      
-        </td>
+          <app-btn-delete (click)="delete(product.id)" ></app-btn-delete>  
+       </td>
       </tr>
     </tbody>
   </table>  

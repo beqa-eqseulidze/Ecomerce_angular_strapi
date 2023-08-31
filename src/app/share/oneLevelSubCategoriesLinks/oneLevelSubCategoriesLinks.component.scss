@@ -1,8 +1,8 @@
 :host{
     height: 100%;
-    display: inherit;
-    flex-direction: inherit;
-    flex-wrap: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 h4{
@@ -10,7 +10,7 @@ h4{
     height:20px;
     margin-right:50px;
     color:red;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
   }
   .menue-link{
     text-decoration: none;

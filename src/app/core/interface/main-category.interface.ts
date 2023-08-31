@@ -1,11 +1,10 @@
 import { IOneLevelSubCategory } from "./one-level-sub-category.interface"
 
 export interface IMainCategoryCreate{
-    data:{
-        title:string
+        data:{
+                title:string
+                }    
         }
-    
-}
 
 export interface IMainCategory{
             id: number
@@ -14,9 +13,7 @@ export interface IMainCategory{
                     createdAt: string
                     updatedAt: string
                     publishedAt: string
-                    one_level_sub_categories?:{
-                    data:IOneLevelSubCategory[]
-                  }
+                    one_level_sub_categories?:{data:IOneLevelSubCategory[]}
                 }
         }
 

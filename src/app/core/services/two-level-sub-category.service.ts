@@ -9,6 +9,5 @@ export class TwoLevelSubCategoryService extends BaseService<ITwoLevelSubCategory
 
     override tbName: string='two-level-sub-categories'
     entries$=new BehaviorSubject<ITwoLevelSubCategory[]>([]);
-
-  
+   
 }

@@ -1,0 +1,3 @@
+
+<!-- <button type="button" [routerLink]="['create']" class="btn btn-success m-2">+ New</button>       -->
+<app-table [data]="data|async" [categoryType]="'main_categories'" (deleteId)="delete($event)"></app-table>

@@ -1,10 +1,11 @@
 <section class="example-container mat-elevation-z8 w-100" tabindex="0" >
-    <table class="table table-hover">
+  <button type="button" [routerLink]="['create']" class="btn btn-success m-2 float-r">+ New</button> 
+  <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">N</th>
             <th scope="col">Title</th>
-            <!-- if categories may have parent categori render next line -->
+            <!-- if categories have a parent category-->
             <th *ngIf="categoryType==='one_level_sub_categories'||categoryType==='two_level_sub_categories'" scope="col">Parent Category</th>
             <th scope="col">Create Date</th>
             <th scope="col">Update Date</th>

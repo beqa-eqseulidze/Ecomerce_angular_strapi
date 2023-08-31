@@ -4,10 +4,7 @@
       <div class="logo">
         <img routerLink="" src="assets/logo.png" width="150" alt="">
       </div>
-    <div class="search" >
-      <input type="search" [(ngModel)]="search" name="" id="" placeholder="ძიება...">
-      <button class="btn-submit" type="submit"> <mat-icon class="icon search-icon">search</mat-icon> </button>
-    </div>    
+      <app-search></app-search>
   </div>
   <div class="right">    
     <ng-container *ngIf="user|async as user; else elseBlock">
@@ -33,7 +30,7 @@
     </div>
   </div>   
   <div class="lower" #lowerHeader>  
-   <ng-container *ngFor="let category of mainCategoryService.entries$|async ">
+   <ng-container *ngFor="let category of mainCategoryService.menuEntries$|async ">
     <div class="link-item" [ngStyle]="{'width':width+'%'}">
       <a class="nav-link" >
         {{category.attributes.title}}
@@ -49,8 +46,8 @@
        Content Manager
       </a>      
        <div class="hoverlinks">
-         <a class="menue-link" [routerLink]="['content-manager/category-manager','main_categories']">Category Manager</a>
-         <a class="menue-link" [routerLink]="['content-manager/product-manager']" [queryParams]="{page:1,pageSize:10}"> Product-manager</a>
+         <a class="menue-link" [routerLink]="['content-manager/category-manager']" [queryParams]="{search:''}" >Category Manager</a>
+         <a class="menue-link" [routerLink]="['content-manager/product-manager']" [queryParams]="{page:1,pageSize:10,search:''}"> Product-manager</a>
        </div> 
     </div>
    </ng-container>

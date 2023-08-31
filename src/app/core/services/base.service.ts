@@ -16,9 +16,9 @@ export class BaseService<C,R> {
     public http:HttpClient,
     private loaderService:LoaderService
   ) { }
-
-  getEntries(queryParam:string=''):Observable<R>{
-    this.loaderService.loaderOn()
+// if don't need to loader set needLoeader to false, default it is true;
+  getEntries(queryParam:string='',needLoeader:boolean=true):Observable<R>{
+    needLoeader&&this.loaderService.loaderOn()
     return this.http.get<R>(this.url+this.tbName+queryParam)
     .pipe(
       // map((d:any)=>d.data),
@@ -44,5 +44,12 @@ export class BaseService<C,R> {
   delete(id:number):Observable<R>{
     return this.http.delete<R>(this.url+this.tbName+'/'+id)
   }
-  test:any=''
+// search   allow all users
+  filter(queryParams:string):Observable<R>{
+    return this.http.get<R>(this.url+this.tbName+queryParams)
+  }
+
+
+
+
 }

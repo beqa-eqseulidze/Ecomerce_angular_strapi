@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPagination } from 'src/app/core/interface';
 
@@ -35,8 +35,8 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  setItemPrePage(el:any):void{
-    this.itemsPrePage.emit((el.target as HTMLSelectElement).value)    
+  setItemPrePage(el:EventTarget| null):void{
+    if(el) this.itemsPrePage.emit(+(el as HTMLSelectElement).value);  
   }
 
 }

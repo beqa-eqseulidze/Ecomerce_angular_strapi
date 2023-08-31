@@ -43,7 +43,7 @@
     </ng-template>
  <div class="item-pre-page">
    <label for="selectSize"> Items PrePage: </label> 
-   <select  name="" id="selectSize" (change)="setItemPrePage($event)">
+   <select  name="" id="selectSize" (change)="setItemPrePage($event['target'])">
      <option *ngFor="let size of pageSizeOption" [selected]="pageSize===size" [value]="size">{{size}}</option>  
    </select>
  </div>   

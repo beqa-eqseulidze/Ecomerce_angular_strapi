@@ -1,3 +1,4 @@
+@import 'src/palette.scss';
 .btns-container{
     display: flex;
     justify-content: center;
@@ -9,8 +10,8 @@
 }
 
 .active-link{
-    background-color: #ff1e38;;
-    border-color: #ff1e38;
+    background-color:$primary-red;
+    border-color: $primary-red;
     color:white;
 }
 

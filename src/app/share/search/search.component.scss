@@ -1,0 +1,30 @@
+@import 'src/palette.scss';
+
+.search{
+    position: relative;
+    width:200px;
+}       
+
+input{
+    width:100%;
+    padding:4px 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color:#e0e0e0;
+    }
+
+.btn-submit{
+    width:30px;
+    background-color:$primary-red;
+    border:none;
+    position:absolute;
+    right:0;
+    top:0;
+    bottom:0;
+    border-radius: 0 10px 10px 0px;
+}                  
+
+.search-icon{
+    color:white;   
+   }

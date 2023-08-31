@@ -11,12 +11,8 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class OneLevelSubCategoryService extends BaseService<
-  IOneLevelSubCategoryCreate,
-  IOneLevelSubCategory
-> {
-  override tbName: string = 'one-level-sub-categories';
+export class OneLevelSubCategoryService extends BaseService<IOneLevelSubCategoryCreate,IOneLevelSubCategory> {
+  override tbName: string = 'one-level-sub-categories'; 
+  entries$ = new BehaviorSubject<IOneLevelSubCategory[]>([]); 
 
- 
-  entries$ = new BehaviorSubject<IOneLevelSubCategory[]>([]);
 }

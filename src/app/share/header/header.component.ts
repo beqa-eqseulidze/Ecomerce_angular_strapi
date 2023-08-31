@@ -5,6 +5,7 @@ import { Observable, Subject, combineLatest, map, pipe, takeUntil, tap, combineL
 import { IMainCategory, IUser } from 'src/app/core/interface';
 import { environment } from 'src/environments/environment';
 import { AuthService, MainCategoryService, StorageService,LoaderService } from 'src/app/core/services';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
@@ -18,11 +19,9 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
   unsubscribe$=new Subject()
   constructor(
     public authservice:AuthService,
-    private storageservice:StorageService,
     public mainCategoryService:MainCategoryService,
     private router:Router,
-    private ngZone:NgZone,
-    private loaderService:LoaderService
+    private ngZone:NgZone  
   ) {}
  
    
@@ -31,7 +30,6 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
   role$:Observable<string|null>=this.authservice.role$
   profilUrl:Observable<string|null>= this.authservice.profilUrl$  
   apiHost:string=environment.appHost
-  search:string=''
   width:number=0;
   cartCount:number=11
 
@@ -45,7 +43,7 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
         )
       .subscribe({
         next:(res:IMainCategory[])=>{
-          this.mainCategoryService.entries$.next(res)      
+          this.mainCategoryService.menuEntries$.next(res)      
         },
         error:(error)=>console.error(error)
       })
@@ -93,12 +91,12 @@ export class HeaderComponent implements OnInit, AfterViewInit,OnDestroy{
     setWidth():void{
       this.authservice.role$
       .pipe(
-        combineLatestWith(this.mainCategoryService.entries$),
+        combineLatestWith(this.mainCategoryService.menuEntries$),
         map(([role,categories])=>{
           if(role==='admin'){
-            this.width=Math.floor(100/(this.mainCategoryService.entries$.getValue().length+1));
+            this.width=Math.floor(100/(this.mainCategoryService.menuEntries$.getValue().length+1));
           }else{
-            this.width=Math.floor(100/this.mainCategoryService.entries$.getValue().length)
+            this.width=Math.floor(100/this.mainCategoryService.menuEntries$.getValue().length)
           }
         })
         )

@@ -1,14 +1,19 @@
 @import 'src/palette.scss';
-
-th {
-  background: $primary-red;
-  color:white;
-  font-weight: 500;
-  position: sticky;
-  top: 0;  
-  z-index:0; 
-}
-td{
-    padding: 5px;
+section{
+  padding: 0 0 20px 0;
+  .float-r{
+    float: right;
+  }
+  th {
+    background: $primary-red;
+    color:white;
+    font-weight: 500;
+    position: sticky;
+    top: 0;  
+    z-index:0; 
+  }
+  td{
+      padding: 5px;
+  }
 }
      

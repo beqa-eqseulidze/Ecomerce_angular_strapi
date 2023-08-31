@@ -10,6 +10,7 @@ import { BtnDeleteComponent } from './buttons/btn-delete/btn-delete.component';
 import { BtnEditComponent } from './buttons/btn-edit/btn-edit.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -21,7 +22,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     BtnDeleteComponent,
     BtnEditComponent,
     LoaderComponent,
-    PaginationComponent
+    PaginationComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,

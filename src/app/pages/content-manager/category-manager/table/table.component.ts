@@ -21,10 +21,10 @@ export interface PeriodicElement {
 export class TableComponent implements OnInit, OnDestroy{
 
   @Input() data?:any //IMainCategory[]|ITwoLevelSubCategory[]|IOneLevelSubCategory[];
-  @Input() categoryType?:string=''
-  @Output() deleteId=new EventEmitter<number>()
+  @Input() categoryType?:string='';
+  @Output() deleteId=new EventEmitter<number>();
 
-  private unsubscribe$=new Subject()
+  private unsubscribe$=new Subject();
   constructor(
     public mainCategoryService:MainCategoryService,
     public oneLevelSubCategoryService:OneLevelSubCategoryService,
@@ -34,14 +34,14 @@ export class TableComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
 
   }
+
  delete(id:number):void{
-  this.deleteId.emit(id)
-   
+  this.deleteId.emit(id);   
  }
 
 
 ngOnDestroy(): void {
-  this.unsubscribe$.next(null)
+  this.unsubscribe$.next(null);
   this.unsubscribe$.complete();
 }
 

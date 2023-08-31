@@ -3,24 +3,54 @@ import { CommonModule } from '@angular/common';
 import { CategoryManagerComponent } from './category-manager.component';
 import { CreateEditCategoryComponent } from './create-edit-category/create-edit-category.component';
 import { TableComponent } from './table/table.component';
-import { RouterModule, Routes } from '@angular/router';
+import { ChildrenOutletContexts, RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ShareModule } from 'src/app/share/share.module'; 
+import { ShareModule } from 'src/app/share/share.module';
+import { MainCategoryComponent } from './main-category/main-category.component';
+import { OneLevelSubCategoryComponent } from './one-level-sub-category/one-level-sub-category.component';
+import { TwoLevelSubCategoryComponent } from './two-level-sub-category/two-level-sub-category.component'; 
 
 
 
 const routes:Routes=[
+  // {
+  //   path:'',
+  //   redirectTo:'main_categories',
+  //   pathMatch:'full'
+  // },
   {
     path:'',
-    redirectTo:'category-manager/main_categories',
-    pathMatch:'full'
+    component:CategoryManagerComponent,
+    children:[
+      {
+        path:'',
+        redirectTo:'main-category',
+        pathMatch:'full'
+      },
+      {
+        path:'main-category',
+        component:MainCategoryComponent
+      },
+      {
+        path:'one-level-sub-category',
+        component:OneLevelSubCategoryComponent
+      },
+      {
+        path:'two-level-sub-category',
+        component:TwoLevelSubCategoryComponent
+      }
+    ]  
   },
   {
-    path:':categoryType',
-    component:CategoryManagerComponent
+    path:'main-category/create',
+    component:CreateEditCategoryComponent
   },
   {
-    path:':categoryType/create',
+    path:'one-level-sub-category/create',
+    component:CreateEditCategoryComponent
+  },
+  {
+    path:'two-level-sub-category/create',
     component:CreateEditCategoryComponent
   },
   {
@@ -33,7 +63,10 @@ const routes:Routes=[
   declarations: [
     CategoryManagerComponent,
     CreateEditCategoryComponent,
-    TableComponent
+    TableComponent,
+    MainCategoryComponent,
+    OneLevelSubCategoryComponent,
+    TwoLevelSubCategoryComponent
   ],
   imports: [
     CommonModule,

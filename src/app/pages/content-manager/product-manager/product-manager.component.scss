@@ -1,11 +1,14 @@
 @import './src/palette.scss';
 
-.content-manager {
-    >button{
-      float:right;
-    }
-    table {
-    width: 100%;
+.content-manager { 
+    .action{
+      display: flex;
+      justify-content:flex-end;
+      align-items: center;
+      padding: 0 10px;      
+    }    
+    table {      
+      width: 100%;
     tr{
       height: 32px;
     }
