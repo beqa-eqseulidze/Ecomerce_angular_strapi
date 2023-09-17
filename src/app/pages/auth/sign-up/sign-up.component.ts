@@ -102,7 +102,7 @@ export class SignUpComponent implements OnDestroy {
   ngOnDestroy() {    
       this.unsubscribe$.next(null)
       this.unsubscribe$.complete()
-      console.log('signUp component destroyed')   
+     
   }
 
 }

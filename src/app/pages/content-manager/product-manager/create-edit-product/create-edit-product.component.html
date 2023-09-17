@@ -34,6 +34,16 @@
       <input type="text" class="form-control" placeholder="warranty" formControlName="warranty" />
       <label for="floatingInput">warranty</label>
     </div>
+    <div class="checkboxies d-flex justify-content-between" >
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="showHomePage">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Show On Home</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="showTopSlider">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Show On Top Slider</label>
+      </div>
+    </div>    
     <ng-container *ngIf="twoLevelSubCategoryService.entries$ | async as parents">
       <div class="form-floating">
         <select class="form-select" id="floatingSelect" aria-label="Floating label select example"

@@ -18,6 +18,8 @@ export interface IProduct{
             createdAt: string
             updatedAt: string
             publishedAt: string
+            showHomePage:boolean
+            showTopSlider:boolean
             image?: {
                 data:Iimage[]
             },
@@ -34,6 +36,8 @@ export interface IProductCreate{
         price:number,
         quantity:number,
         warranty?:string,
-        parent:number
+        parent:number       
+        // showHomePage:boolean
+        // showTopSlider:boolean
     }
 }

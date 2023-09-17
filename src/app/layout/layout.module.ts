@@ -16,6 +16,10 @@ const routes:Routes=[
         loadChildren:()=>import('src/app/pages/home/home.module').then(m=>m.HomeModule)
       },
       {
+        path:'details',
+        loadChildren:()=>import('src/app/pages/details/details.module').then(m=>m.DetailsModule)
+      },
+      {
         path:'auth',
         loadChildren:()=>import('src/app/pages/auth/auth.module').then(m=>m.AuthModule)
       },

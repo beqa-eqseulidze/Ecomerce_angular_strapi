@@ -1,2 +1,15 @@
-<p>home works!</p>
+
+
+<p class="px-5 pt-5">
+    <ng-image-slider 
+    [images]="imageObject" 
+    [infinite]="true"
+    [imagePopup]="false"
+    [animationSpeed]="1"
+    [imageSize]="{width: '20%', height:'300px',space: 4}"
+    [autoSlide]="5"   
+    (imageClick)="showDelaits($event)"
+    #nav>
+</ng-image-slider>
+</p>
 

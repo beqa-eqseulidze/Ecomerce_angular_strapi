@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 const routes:Routes=[
   {
@@ -18,7 +19,9 @@ const routes:Routes=[
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    NgImageSliderModule
+    
   ]
 })
 export class HomeModule { }

@@ -52,7 +52,7 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
     this.productImages=[]
     this.uploadImages=[]
     this.uploadImageUrls=[]    
-    this.activatedRoute.params.subscribe((e) => {if (e['id']) this.productId = +e['id']});    
+    this.activatedRoute.params.subscribe((params) => {if (params['id']) this.productId = +params['id']});    
     if (!this.twoLevelSubCategoryService.entries$.getValue().length){
       this.twoLevelSubCategoryService
         .getEntries('?populate=*')
@@ -87,6 +87,8 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
       Validators.min(1),
       Validators.pattern(/^\d*(\.\d+)?$/),
     ]),
+    showHomePage:new FormControl(false,[Validators.required]),
+    showTopSlider:new FormControl(false,[Validators.required]),
     warranty: new FormControl(''),
     parent: new FormControl('', [
       Validators.required,

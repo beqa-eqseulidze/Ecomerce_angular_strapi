@@ -17,7 +17,7 @@ export interface IFullImage {
 
   export interface IimageAttributes{ 
       name: string
-      alternativeText: any
+      alternativeText: string
       caption: any
       width: number
       height: number
