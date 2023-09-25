@@ -73,7 +73,7 @@ export class SignUpComponent implements OnDestroy {
       this.errorText = 'password don\'t match'
       return
     }
-    this.form.markAllAsTouched()
+    this.form.markAllAsTouched();
 
     if (this.form.invalid) {
       this.errorText = 'fill in form correctly'

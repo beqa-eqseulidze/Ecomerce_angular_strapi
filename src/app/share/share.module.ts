@@ -11,6 +11,7 @@ import { BtnEditComponent } from './buttons/btn-edit/btn-edit.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SearchComponent } from './search/search.component';
+import { CaruselComponent } from './carusel/carusel.component';
 
 
 
@@ -23,7 +24,8 @@ import { SearchComponent } from './search/search.component';
     BtnEditComponent,
     LoaderComponent,
     PaginationComponent,
-    SearchComponent
+    SearchComponent,
+    CaruselComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { SearchComponent } from './search/search.component';
     BtnDeleteComponent,
     BtnEditComponent,
     LoaderComponent,
-    PaginationComponent
+    PaginationComponent,
+    CaruselComponent
   ]
 })
 export class ShareModule { }

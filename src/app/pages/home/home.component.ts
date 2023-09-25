@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void { 
 
-  this.getTopSliderProducts();
+  // this.getTopSliderProducts();
 
     // const token=this.authService.token$.getValue()
     // if(token){

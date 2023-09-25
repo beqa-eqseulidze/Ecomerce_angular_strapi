@@ -1,7 +1,7 @@
 
 
 <p class="px-5 pt-5">
-    <ng-image-slider 
+    <!-- <ng-image-slider 
     [images]="imageObject" 
     [infinite]="true"
     [imagePopup]="false"
@@ -10,6 +10,15 @@
     [autoSlide]="5"   
     (imageClick)="showDelaits($event)"
     #nav>
-</ng-image-slider>
+</ng-image-slider> -->
 </p>
 
+<app-carusel 
+[custemWrapper]=""
+></app-carusel>
+
+<ng-template #custemWrapper let-images>
+    <div *ngFor="let image of images">
+        cusom wraper
+    </div>
+</ng-template>
