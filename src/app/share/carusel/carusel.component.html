@@ -1,0 +1,46 @@
+  <div class="wrapper" [style]="wrapperStyles" >
+    <div class="carusel-cards" [ngStyle]="{ gap: cardGap }" #cardsContainer>
+      <div
+        class="carusel-card"
+        [ngStyle]="{ 'min-width': width}"
+       *ngFor="let product of products; let i=index"
+       (click)="productId.emit(product.id)"
+      >
+        <img
+          class="card-image"
+          [ngStyle]="{ height: height}"
+          [src]="product.imgUrl"
+          [alt]="product.alt"
+        />
+       <ng-container [ngTemplateOutlet]="descriptionContainer || description" [ngTemplateOutletContext]="{$implicit:product}"] ></ng-container>
+      </div>
+    </div>
+    <img
+      class="arrow-left"
+      [src]="arrowLeft"
+      alt="arrow left"
+      [style]="arrowLeftStyle"
+      (click)="ClickSlid('left')"
+    />
+    <img
+      class="arrow-right"
+      [src]="arrowRight"
+      alt="arrow right"
+      [style]="arrowRightStyle"
+      (click)="ClickSlid('right')"
+    />
+  </div>
+
+
+<ng-template #description let-product>
+    <div class="description" [style]="descriptionStyles" >
+             <h3>{{product.title}}</h3>
+             <div class="prices">
+              <span class='price'>{{product.price}}</span>
+              <span class="price old" *ngIf="product.oldPrice" >{{product.oldPrice}}</span>
+             </div>
+             <img class="cart" [src]="cartImageUrl" alt=""  >
+    </div>
+</ng-template>
+
+

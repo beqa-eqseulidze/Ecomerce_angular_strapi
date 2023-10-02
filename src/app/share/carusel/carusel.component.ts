@@ -8,340 +8,230 @@ import {
   TemplateRef,
   ViewChild,
   AfterViewInit,
+  Output,
+  EventEmitter,
+  OnDestroy,
 } from '@angular/core';
 import { NgImageSliderModule } from 'ng-image-slider';
-const images = [
+
+const dummyProducts = [
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
   {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
+  id:26,
+  title:"product title",
+  imgUrl:"https://placehold.jp/300x350.png",
+  alt:'some text',
+  price:80,
+  oldPrice:100
   },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
-  {
-    imgMedumeUrl: 'https://placehold.jp/300x350.png',
-    alt: 'some image',
-    title: 'some title',
-  },
+  
+
 ];
+
+// interface product{
+ //  id:number
+//   title:string;
+//   imgUrl:string;
+//   alt?:string;
+//   price:number;
+//   oldPrice?:number;
+// }
+
 
 @Component({
   selector: 'app-carusel',
-  template: `
-    <ng-container
-      [ngTemplateOutlet]="custemWrapper || defaultWrapper"
-      [ngTemplateOutletContext]="{ $implicit: imagesObjects }"
-      ]
-    >
-    </ng-container>
-
-    <ng-template #defaultWrapper>
-      <div class="wrapper" [style]="wrapperStyles">
-        <div class="cards" [ngStyle]="{ gap: cardGap }" #cardsContainer>
-          <div
-            class="card"
-            [ngStyle]="{ 'min-width': width, height: height }"
-            *ngFor="let image of imagesObjects; let i=index"
-          >
-            <img
-              class="card-image"
-              [src]="image.imgMedumeUrl"
-              [alt]="image.alt"
-            />
-            <div class="description">
-              card: {{i+1}}
-            </div>
-          </div>
-        </div>
-        <img
-          class="arrow-left"
-          [src]="arrowLeft"
-          alt="arrow left"
-          [style]="arrowLeftStyle"
-          (click)="ClickSlid('left')"
-        />
-        <img
-          class="arrow-right"
-          [src]="arrowRight"
-          alt="arrow right"
-          [style]="arrowRightStyle"
-          (click)="ClickSlid('right')"
-        />
-      </div>
-    </ng-template>
-  `,
-  styles: [
-    `
-      * {
-        box-sizing: border-box;
-        margin:0;
-        padding:0;
-      }
-      .wrapper {
-        position: relative;
-        /* border:1px solid green;     */
-      }
-      .cards {
-        display: flex;
-        flex-wrap: noWrap;
-        overflow-x: auto;
-        outline:1px solid red;
-      }
-      .cards::-webkit-scrollbar {
-        height: 0;
-        /* height: 5px;
-        background: gray; */
-      }
-      /* .cards::-webkit-scrollbar-track {
-        --webkit-box-shadow: inset 0 0 6px green;
-      }
-      .cards::-webkit-scrollbar-thumb {
-        background: red;
-        outline: 1px solid orange;
-        width: 10px;
-      } */
-      .card {
-        background: blue;
-      }
-      .card-image {
-        width: 100%;
-        display: block;
-      }
-      .arrow-left,
-      .arrow-right {
-        position: absolute;
-        transform: translateY(-50%);
-        top: 50%;
-        width: 20px;
-      }
-      .arrow-left {
-        left: 2%;
-      }
-      .arrow-right {
-        right: 2%;
-      }
-    `,
-  ],
+  templateUrl:'./carusel.component.html',
+  styleUrls: ['./carusel.component.scss'],
 })
-export class CaruselComponent implements OnInit, AfterViewInit {
-  @Input() imagesObjects: any = images;
-  @Input() wrapperStyles: string = 'width:100%; padding:0 10px;'; // wrapper container can take custom styles
-  @Input() custemWrapper?: TemplateRef<any>;
-  @Input() heightRatio: number = 1.5; // card height ratio compare to width
+export class CaruselComponent implements OnInit, AfterViewInit,OnDestroy {
+  @Input() customWrapper?: TemplateRef<any>;
+  @Input() descriptionContainer?:TemplateRef<any>
+
+  @Input() products:any =dummyProducts;
+  @Input() wrapperStyles: string = ""// wrapper container can take custom styles
+  @Input() heightRatio: number = 1.2; // card height ratio compare to width
   @Input() imageQuantity: number = 5; // how many image must be in a view;
   @Input() gap: number = 10; // gap in "px" between images;
-  @Input() arrowLeft: string = 'assets/slider-arrow-right.png'; //arrow left image src in string format;
-  @Input() arrowRight: string = 'assets/slider-arrow-right.png'; //arrow right image src instring format;
-  @Input() arrowLeftStyle: string = ''; //arrow left image style in string format;
-  @Input() arrowRightStyle: string = ''; //arrow right image style in string format;
+  @Input() arrowLeft: string = 'assets/left-arrow.png'; //arrow left image src in string format;
+  @Input() arrowRight: string = 'assets/right-arrow.png'; //arrow right image src instring format;
+  @Input() arrowLeftStyle: string = 'width:35px;'; //arrow left image style in string format;
+  @Input() arrowRightStyle: string = 'width:35px'; //arrow right image style in string format;
   @Input() slidStep: number = 2; //how many card slide pre click;
-  @Input() smooth: boolean = true; // slider after click will be smooth or not;
-  @Input() speed: number = 1; //carusel speed;
+  @Input() smooth: boolean = true // slider after click will be smooth or not;
+  @Input() lowSpeed: number =1; //carusel speed min value 1;
   @Input() autoPlay:boolean=true // autoplay ;
-  @Input() autoPalayInterval:number=5000// auto slider interval in miliseconds 
+  @Input() autoPalayInterval:number=5000// auto slider interval in miliseconds ;
+  @Input() descriptionStyles:string='height:80px; display:flex; padding:5px; overflow:hidden'// ;
+  @Input() cartImageUrl:string='assets/cart.png' // shoping cart image url;
+  @Input() count:number=2; // how many px slid each call function slid()  recomendied value  1 or 2;
+
+  @Output() productId=new EventEmitter<number>();
 
   public CardsContainerWidth: number = 0;
   public width?: string;
   public height?: string;
   public widthN: number = 1;
   public heightN: number = 1;
+  public cardGap = this.gap + 'px';
   private cardsContainer!:HTMLElement;
-  cardGap = this.gap + 'px';
-  private isReseted:boolean=false;
+  private caruselOn:boolean=false;
+  private step!:number;
+  private stepFraction!:number;
+  private setInteral:any;
+  
 
   constructor() {}  
-  @ViewChild('cardsContainer') el!: ElementRef;
+  @ViewChild('cardsContainer') cardsElementel!: ElementRef;
   @HostListener('window:resize') resize(): void {
     this.setDimension();
+    this.step=(this.widthN+this.gap) * this.slidStep;
+    console.log('this.step: '+this.step);
     this.slidReset();
   }
 
-  ngOnInit(): void {
-    if(this.autoPlay){};    
-  }
-
+  ngOnInit(): void {};
 
   ngAfterViewInit(): void {
-    this.cardsContainer=this.el.nativeElement;
-    this.setDimension();    
+    this.cardsContainer=this.cardsElementel.nativeElement;
+    this.setDimension(); 
     this.AutoSlide();
-
+    this.step=(this.widthN+this.gap) * this.slidStep;
+    this.stepFraction=this.step%this.count
   }
-
+   
   // Set card conatiner width and height dynamically;
   private setDimension(): void {    
-    //calculate card container width dynamically;
-    this.widthN =
-      (this.cardsContainer.offsetWidth -
-        (this.imageQuantity - 1) * this.gap) /
-      this.imageQuantity;
+   //calculate card container width dynamically;
+   this.cardsContainer.style.width='100%'
+    this.widthN =Math.floor((this.cardsContainer.clientWidth-(this.imageQuantity-1)*this.gap)/this.imageQuantity);
+    this.cardsContainer.style.width=(this.widthN*this.imageQuantity+this.gap*(this.imageQuantity-1))+'px';
     this.heightN = this.widthN * this.heightRatio;
     this.width = this.widthN + 'px';
     this.height = this.heightN + 'px';
   }
-  //slid handler function:
-  private slid( direction?:'left' ): void {   
-    const stap:number =(this.widthN + this.gap) * this.slidStep;
-     if (!this.smooth) {
-       direction ? (this.cardsContainer.scrollLeft -= stap) : (this.cardsContainer.scrollLeft += stap);
+
+
+  //slid handler; 
+
+  private slid( direction?:string): void { 
+    console.log('call slide()');    
+    // If carussel is in action this function returns; 
+    if(this.caruselOn) return;   
+    if (!this.smooth) {
+      direction ? (this.cardsContainer.scrollLeft -= this.step) : (this.cardsContainer.scrollLeft += this.step);
+      if(this.isRight()) this.slidReset();
      } else {
-      const move = () =>
-       direction ? (this.cardsContainer.scrollLeft -= 1) : (this.cardsContainer.scrollLeft += 1);
-       let currentStep = 0;
-       const interval = setInterval(
+        if(this.isRight()){
+          this.slidReset();         
+          return
+        } 
+        const move = (n:number) =>{        
+          direction ? (this.cardsContainer.scrollLeft-=n) : (this.cardsContainer.scrollLeft+=n);
+          currentStep+=n
+        }
+        let currentStep = 0;
+
+        const interval2 = setInterval(
          () => {
-           if (currentStep >=stap) {
-             clearInterval(interval);
-             return;
+          this.caruselOn=true;         
+           if (currentStep===this.step-this.stepFraction){             
+              move(this.stepFraction);         
+              clearInterval(interval2);
+              this.caruselOn=false;             
            }
-           move();
-           currentStep += 1;
-           if(this.isRight()){
-            this.isReseted=true; 
-            clearInterval(interval); 
-            setTimeout(()=>{
-              this.slidReset();
-            },this.autoPalayInterval)            
-          }  
+           else if(!this.isRight()){         
+             move(this.count);            
+           }          
+           if(this.isRight()){             
+             clearInterval(interval2);                          
+             this.caruselOn=false;               
+          }       
          },
-         // input speed argument must be between 1 and 10 atherwise it will be 1 or 10
-         this.speed > 10 ? 10 : this.speed < 1 ? 1 : this.speed
+         // input speed argument must be greater than 1;
+         this.lowSpeed <1? 1 :this.lowSpeed
        );
      }
    }
 
   //slider main function:
   public ClickSlid( direction: string ): void { 
-    direction==='left'? this.slid(direction):this.slid()  
-  //  const stap:number =(this.widthN + this.gap) * this.slidStep;
-  //   if (!this.smooth) {
-  //     direction === 'right' ? (this.cardsContainer.scrollLeft += stap) : (this.cardsContainer.scrollLeft -= stap);
-  //   } else {
-  //     const move = () =>
-  //       direction === 'right' ? (this.cardsContainer.scrollLeft += 1) : (this.cardsContainer.scrollLeft -= 1);
-  //     let currentStep = 0;
-  //     const interval = setInterval(
-  //       () => {
-  //         if (currentStep >=stap) {
-  //           clearInterval(interval);
-  //           return;
-  //         }
-  //         move();
-  //         currentStep += 1;
-  //       },
-  //       // input speed argument must be between 1 and 10 atherwise it will be 1 or 10
-  //       this.speed > 10 ? 10 : this.speed < 1 ? 1 : this.speed
-  //     );
-  //   }
+    direction==='left'? this.slid(direction):this.slid();  
   }
 
   //Reset slider position ;
   public slidReset():void{ 
-    this.cardsContainer.scrollLeft=0;
+    this.cardsContainer.scrollLeft=0;   
   }
-
   //Auto slide ;
   public AutoSlide():void{
     if(this.autoPlay){
-      this.isReseted=false;      
-      // const move=()=>this.cardsContainer.scrollLeft += 1;
-      const stap:number =(this.widthN + this.gap) * this.slidStep;
-      const interval=setInterval(()=>{  
-        this.slid();             
-        // let currentStep=0;
-        // const interval2=setInterval(()=>{
-        //   if(currentStep>=stap){
-        //     clearInterval(interval2)
-        //   }
-        //   //  move(); 
-        //    currentStep+=1;      
-        //   if(this.isRight()){
-        //       this.isReseted=true; 
-        //       clearInterval(interval2); 
-        //       setTimeout(()=>{
-        //         this.slidReset();
-        //       },this.autoPalayInterval)            
-        //     }      
-        // },this.speed > 10 ? 10 : this.speed < 1 ? 1 : this.speed);  
-        
-      },(this.isReseted?this.autoPalayInterval*2+stap:this.autoPalayInterval+stap))
+    this.setInteral=setInterval(()=>{  
+           this.slid();       
+      },this.autoPalayInterval) 
     }
   }
-
   // if cards container is right conner returns true atherwise false;
 private isRight():boolean{
   const cards=this.cardsContainer;
   if(!cards) return false;
   return (cards.scrollLeft+cards.clientWidth)===cards.scrollWidth
 }
-
-
+ ngOnDestroy(): void {
+   clearInterval(this.setInteral)
+ }
 }

@@ -1,2 +1,10 @@
-<p>details works!</p>
-<p>product: {{product|json}} </p>
+<button (click)="goBack()">Go Back</button>
+<ng-container *ngIf="product; else elseBlock">
+    <h2> {{product.attributes.name}}</h2>  
+    <img width="300" [src]="appHost+product.attributes.image?.data![0].attributes.url" alt="">
+    <p>Description :{{product.attributes.description}}</p>
+</ng-container>
+
+<ng-template #elseBlock>
+    product not found 
+</ng-template>

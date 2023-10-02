@@ -13,6 +13,7 @@ export interface IProduct{
             name: string
             description: string
             price: number
+            oldPrice?:number
             quantity: number
             warranty?: string
             createdAt: string

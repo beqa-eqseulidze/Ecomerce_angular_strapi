@@ -1,24 +1,15 @@
+<div class="top-carusel" >
+    <app-carusel
+    (productId)="goDetailsPage($event)" 
+    [products]="productsForTopSlider"
+    [customWrapper]="" 
+    > </app-carusel>
+</div>
 
-
-<p class="px-5 pt-5">
-    <!-- <ng-image-slider 
-    [images]="imageObject" 
-    [infinite]="true"
-    [imagePopup]="false"
-    [animationSpeed]="1"
-    [imageSize]="{width: '20%', height:'300px',space: 4}"
-    [autoSlide]="5"   
-    (imageClick)="showDelaits($event)"
-    #nav>
-</ng-image-slider> -->
-</p>
-
-<app-carusel 
-[custemWrapper]=""
-></app-carusel>
 
 <ng-template #custemWrapper let-images>
     <div *ngFor="let image of images">
-        cusom wraper
+        cusom wrapper
     </div>
 </ng-template>
+

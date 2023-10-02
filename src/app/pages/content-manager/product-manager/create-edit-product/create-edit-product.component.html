@@ -15,33 +15,37 @@
     </div>
     <div class="form-floating">
       <input type="text" class="form-control" placeholder="product name" formControlName="name" />
-      <label for="floatingInput">name</label>
+      <label >Name</label>
     </div>
     <div class="form-floating">
-      <textarea name="description" id="floatingInput" cols="30" rows="10" class="form-control" placeholder="description"
+      <textarea name="description"  cols="30" rows="10" class="form-control" placeholder="description"
         formControlName="description"></textarea>
-      <label for="floatingInput">description</label>
+      <label>Description</label>
     </div>
     <div class="form-floating">
       <input type="number" class="form-control" placeholder="quantity" formControlName="quantity" />
-      <label for="floatingInput">quantity</label>
+      <label>Quantity</label>
     </div>
     <div class="form-floating">
-      <input type="number" class="form-control" placeholder="price" formControlName="price" />
-      <label for="floatingInput">price</label>
+      <input type="number" class="form-control" placeholder="Price" formControlName="price" />
+      <label >Price</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control" placeholder="Old Price" formControlName="oldPrice" />
+      <label >Old Price</label>
     </div>
     <div class="form-floating">
       <input type="text" class="form-control" placeholder="warranty" formControlName="warranty" />
-      <label for="floatingInput">warranty</label>
+      <label>Warranty</label>
     </div>
     <div class="checkboxies d-flex justify-content-between" >
       <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="showHomePage">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Show On Home</label>
+        <input class="form-check-input" type="checkbox" id="OnHome" formControlName="OnHome">
+        <label class="form-check-label" for="OnHome">On Home</label>
       </div>
       <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="showTopSlider">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Show On Top Slider</label>
+        <input class="form-check-input" type="checkbox" id="inTopSlider" formControlName="inTopSlider">
+        <label class="form-check-label" for="inTopSlider">In Top Slider</label>
       </div>
     </div>    
     <ng-container *ngIf="twoLevelSubCategoryService.entries$ | async as parents">
@@ -69,8 +73,8 @@
   </div>
   <ng-template #editMode>
     <div class="text-center p-3">
-      <input type="file" style="display:none" (change)="addImage($event)" #imageUpload />
-      <a class="add-image p-2 btn btn-lg" (click)="imageUpload.click()">+ Choose Image</a>
+      <input type="file" style="display:none" (change)="addImage($event)" #imageUpload2 />
+      <a class="add-image p-2 btn btn-lg" (click)="imageUpload2.click()">+ Choose Image</a>
       <div class="images-container mt-3 p-3 d-flex gap-2 flex-wrap justify-content-start">
         <p *ngIf="!productImages.length && !uploadImageUrls.length ">No product image</p>
         <div class="img-wraper position-relative" *ngFor="let image of productImages; let i = index">

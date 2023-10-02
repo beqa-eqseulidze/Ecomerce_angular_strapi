@@ -21,13 +21,16 @@ export class BaseService<C,R> {
     needLoeader&&this.loaderService.loaderOn()
     return this.http.get<R>(this.url+this.tbName+queryParam)
     .pipe(
-      // map((d:any)=>d.data),
-      tap(()=>this.loaderService.loaderOff())
+       tap(()=>this.loaderService.loaderOff())
       )
   }
 
-  getById(id:number,queryParam:string=''):Observable<R>{
+  getById(id:number,queryParam:string='', needLoeader:boolean=true):Observable<R>{
+    needLoeader&&this.loaderService.loaderOn()
     return this.http.get<R>(this.url+this.tbName+'/'+id+queryParam).pipe(map((d:any)=>d.data))
+    .pipe(
+       tap(()=>this.loaderService.loaderOff())
+      )
   }
 
 // create() allow only admin users

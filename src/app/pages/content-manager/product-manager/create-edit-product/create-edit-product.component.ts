@@ -82,13 +82,17 @@ export class CreateEditProductComponent implements OnInit, OnDestroy {
       Validators.min(0),
       Validators.pattern(/^\d*(\.\d+)?$/),
     ]),
+    oldPrice: new FormControl('', [
+      Validators.min(0),
+      Validators.pattern(/^\d*(\.\d+)?$/),
+    ]),
     quantity: new FormControl('1', [
       Validators.required,
       Validators.min(1),
       Validators.pattern(/^\d*(\.\d+)?$/),
     ]),
-    showHomePage:new FormControl(false,[Validators.required]),
-    showTopSlider:new FormControl(false,[Validators.required]),
+    OnHome:new FormControl(false,[Validators.required]),
+    inTopSlider:new FormControl(false,[Validators.required]),
     warranty: new FormControl(''),
     parent: new FormControl('', [
       Validators.required,
